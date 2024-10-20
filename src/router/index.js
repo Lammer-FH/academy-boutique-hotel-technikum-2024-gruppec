@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Impressum from '../components/Impressum.vue'; // Importiere die Impressum-Komponente
+import Impressum from '../components/Impressum.vue'
+import UeberUnsView from "../views/UeberUnsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,12 +12,12 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/ueber-uns',
+      name: 'ueber-uns',
+      component: UeberUnsView
     },
     {
-      path: '/impressum', // Füge die Impressum-Route hinzu
+      path: '/impressum',
       name: 'impressum',
       component: Impressum
     }
