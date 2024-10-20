@@ -37,7 +37,7 @@ export default {
       :img-alt="imgAlt"
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="max-width: 30rem;"
       class="mb-2"
   >
     <b-card-text>
