@@ -12,7 +12,7 @@ export default {
   <b-container class="mt-4">
     <!-- Erste Zeile mit zwei Cards -->
     <b-row>
-      <b-col md="6" lg="6">
+      <b-col cols="12" md="6" lg="6">
         <HotelCard
             title="Alan Turing"
             description="Alan Turing war ein britischer Mathematiker, Logiker und Informatiker, der als einer der Väter der modernen Computerwissenschaft gilt."
@@ -21,7 +21,7 @@ export default {
             button-text="Jetzt buchen" />
       </b-col>
 
-      <b-col md="6" lg="6">
+      <b-col cols="12" md="6" lg="6">
         <HotelCard
             title="Grace Hopper"
             description="Grace Hopper war eine amerikanische Computerwissenschaftlerin und Navy-Offizierin, die als eine der Pionierinnen der Informatik gilt."
@@ -33,7 +33,7 @@ export default {
 
     <!-- Zweite Zeile mit zwei Cards -->
     <b-row>
-      <b-col md="6" lg="6">
+      <b-col cols="12" md="6" lg="6">
         <HotelCard
             title="Ada Lovelace"
             description="Ada Lovelace, geboren 1815 in London, war eine brillante Mathematikerin und wird oft als die erste Programmiererin der Welt bezeichnet."
@@ -42,7 +42,7 @@ export default {
             button-text="Jetzt buchen" />
       </b-col>
 
-      <b-col md="6" lg="6">
+      <b-col cols="12" md="6" lg="6">
         <HotelCard
             title="Margaret Hamilton"
             description="Margaret Hamilton war eine amerikanische Computerwissenschaftlerin, die die Software für die Apollo-Raumfahrtprogramme entwickelte."

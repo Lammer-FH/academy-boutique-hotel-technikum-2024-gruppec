@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Impressum from '../components/Impressum.vue'; // Importiere die Impressum-Komponente
+import Impressum from '@/components/Impressum.vue'; // Importiere die Impressum-Komponente
 import landingView from "@/views/landingView.vue";  // Import LandingView
 
 const router = createRouter({

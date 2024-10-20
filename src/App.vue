@@ -6,8 +6,6 @@ import LandingView from "@/views/landingView.vue";
 </script>
 
 <template>
- <landing-view />
-
 
   <RouterView />
 </template>
