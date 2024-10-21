@@ -38,7 +38,7 @@ export default {
       img-top
       tag="article"
       style="max-width: 30rem;"
-      class="mb-2"
+      class="mb-2 card-responsive"
   >
     <b-card-text>
       {{ description }}

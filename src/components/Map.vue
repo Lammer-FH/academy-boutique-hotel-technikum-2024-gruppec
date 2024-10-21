@@ -26,8 +26,8 @@ export default {
   <div>
     <l-map :zoom="zoom" :center="center" class="footer-map">
       <l-tile-layer
-          :url="`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`"
-          :attribution="`&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors`"
+          :url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          :attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
       />
       <l-marker :lat-lng="center">
         <l-popup>
