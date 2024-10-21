@@ -27,6 +27,14 @@ export default {
       default: "View Details",
     },
   },
+  //test weil Beispielzimmer nicht richtig angezeigt wird:
+  /*computed: {
+    resolvedImgSrc() {
+      return require(`@/assets/${this.imgSrc}`);
+    }
+  }
+
+   */
 };
 </script>
 
