@@ -1,6 +1,8 @@
 <script>
+
+import Map from '@/components/Map.vue';
 export default {
-  name: 'Footer'
+  name: 'Footer',
 };
 </script>
 
@@ -22,6 +24,10 @@ export default {
       <a href="https://www.facebook.com/NerdHotel" target="_blank">Facebook</a> |
       <a href="https://www.instagram.com/NerdHotel" target="_blank">Instagram</a>
     </div>
+    <!-- Dahin soll die Map
+    <map>
+      Hotelstandort
+    </map>-->
   </footer>
 </template>
 

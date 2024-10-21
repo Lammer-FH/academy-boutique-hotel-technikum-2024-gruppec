@@ -16,7 +16,7 @@ export default {
 
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
+    <b-navbar toggleable="lg" type="dark" class="fixed-top">
 
       <b-navbar-brand class="nerd-logo-container">
         <img src="@/assets/nerd-logo.png" alt="Logo" class="nerd-logo"/>
@@ -47,7 +47,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: #557878 !important;
+  background-color: #557878;
   color: white;
 }
 
