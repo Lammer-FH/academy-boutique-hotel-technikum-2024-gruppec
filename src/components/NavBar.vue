@@ -1,5 +1,5 @@
 <script>
-import { BNavbar, BNavbarBrand, BNavbarToggle, BCollapse, BNavbarNav, BNavItem, BNavItemDropdown } from 'bootstrap-vue-3';
+import {BNavbar, BNavbarBrand, BNavbarToggle, BCollapse, BNavbarNav, BNavItem} from 'bootstrap-vue-3';
 
 export default {
   name: "NavBar",
@@ -10,36 +10,32 @@ export default {
     BCollapse,
     BNavbarNav,
     BNavItem,
-    BNavItemDropdown,
+  }
 }
-}
-
 </script>
 
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
-      <b-navbar-brand>
-        <img src="@/assets/nerd-logo.png" alt="Logo" class="navbar-logo" />
-      </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-brand class="nerd-logo-container">
+        <img src="@/assets/nerd-logo.png" alt="Logo" class="nerd-logo"/>
+      </b-navbar-brand>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item> <!-- Link anpassen für Home -->
+          <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/impressum">Impressum</b-nav-item>
           <b-nav-item to="/ueber-uns">Über uns</b-nav-item>
-          <!--für später: Vorbereitung -->
-          <!--<b-nav-item-dropdown right>
-            <template #button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign In</b-dropdown-item>
-          </b-nav-item-dropdown>-->
         </b-navbar-nav>
       </b-collapse>
+
+      <b-nav-item class="nav-icon">
+        <img src="@/assets/login.png" alt="Login" class="login-icon"/>
+      </b-nav-item>
+
+      <b-navbar-toggle target="nav-collapse" class="navbar-toggle-right"></b-navbar-toggle>
+
     </b-navbar>
   </div>
 </template>
@@ -47,17 +43,49 @@ export default {
 <style scoped>
 
 .fixed-top {
-  width:100%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 10px;
-  background-color: #282c34;
+  background-color: #557878 !important;
   color: white;
 }
 
-.navbar-logo {
-  height: 40px; /* von 30px auf 40px vergrößert */
+.nerd-logo-container {
+  margin-left: 10px;
+}
+
+.nerd-logo {
+  height: 40px;
   width: auto;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+}
+
+.login-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* für Handys */
+@media (max-width: 992px) {
+
+  .nav-icon {
+    margin-left: 0;
+  }
+
+  .navbar-toggle-right {
+    margin-left: 10px;
+  }
+
+  .nerd-logo-container {
+    margin-right: auto;
+  }
 }
 
 </style>
