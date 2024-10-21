@@ -5,9 +5,11 @@ import NavBar from "@/components/NavBar.vue";
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
   }
 }
+
+
 
 </script>
 
@@ -15,8 +17,6 @@ export default {
   <div id="app">
     <NavBar />
     <RouterView />
-
-
   </div>
 </template>
 

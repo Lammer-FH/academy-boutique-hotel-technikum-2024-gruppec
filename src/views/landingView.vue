@@ -13,10 +13,14 @@ export default {
   <!-- Titelbild -->
   <div class="title-image">
     <img src="@/assets/Titelbild_LandingPage.png"
-    alt="Titelbild"
-    class="image"
+         alt="Titelbild"
+         class="full-width-image"
     />
   </div>
+
+
+  <!-- Abstand unter dem Titelbild -->
+  <div class="spacer"></div>
 
   <b-container class="mt-4">
     <!-- Erste Zeile mit zwei Cards -->
@@ -124,11 +128,71 @@ export default {
       </b-col>
     </b-row>
   </b-container>
+
+  <!-- Map über dem Footer -->
+  <div class="map-image">
+  <h2 class="map-title">Unser Standort</h2>
+    <img src="@/assets/Map.png" alt="Map" class="map-image" />
+  </div>
+
   <Footer>
   </Footer>
 
 </template>
 
 <style scoped>
+.title-image {
+  width: 100vw; /* Volle Breite des Viewports */
+  text-align: center;
+  position: relative; /*absolute, damit das Foto am oberen Ende bleibt*/
+  left: 50%; /* Positioniert das Foto in die Mitte */
+  right: 50%;
+  margin-left: -50vw; /* Verschiebt das Foto nach links */
+  margin-right: -50vw; /* Verschiebt das Foto nach rechts */
+}
 
+.full-width-image {
+  width: 100vw; /* Stellt sicher, dass das Bild über die gesamte Breite des Viewports geht */
+  height: 16vw; /* Höhe passt sich an, um das Seitenverhältnis beizubehalten */
+  object-fit: cover; /* Füllt die Box aus und schneidet ggf. überflüssige Teile ab */
+}
+
+.map-image {
+  text-align: center; /* Zentriert das Bild */
+  margin: 20px 0; /* Abstand über und unter dem Bild */
+}
+
+.map-image {
+  width: 100%; /* Bild nimmt die volle Breite ein */
+  height: auto; /* Höhe wird automatisch angepasst */
+}
+
+
+.map-title {
+  font-size: 24px; /* Schriftgröße für den Titel */
+  font-weight: bold; /* Fettschrift */
+  margin: 80px 0 10px; /* Abstand oben (40px) und unten (10px) */
+}
+
+
+  /* Media Queries für kleinere Bildschirme */
+@media (max-width: 768px) {
+  .full-width-image {
+    height: 30vw; /* Höhe des Bildes für Tablets */
+  }
+
+  .spacer {
+    height: 30vw; /* Mehr Abstand unter dem Titelbild für Tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .full-width-image {
+    height: 40vw; /* Höhe des Bildes für Handys */
+  }
+
+  .spacer {
+    height: 12vw; /* Abstand unter dem Titelbild für Handys */
+  }
+}
 </style>

@@ -4,6 +4,7 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 //import 'leaflet/dist/leaflet.css'
 
 
+
 import BootstrapVue3 from 'bootstrap-vue-3'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
