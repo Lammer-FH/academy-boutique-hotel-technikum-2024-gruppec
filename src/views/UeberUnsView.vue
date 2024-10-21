@@ -1,27 +1,34 @@
 <script>
+import Footer from "@/components/Footer.vue";
+
 export default {
-  name: "UeberUnsView"
+  name: "UeberUnsView",
+  components: {Footer}
 }
 </script>
 
 <template>
+
+  <!-- Teamfoto eingefügt-->
+  <img src="@/assets/nerds_teamfoto.png" alt="Unser nerdiges Team" class="teamfoto">
+
   <div class="ueber-uns">
-    <h1>Über Uns</h1>
+    <h2>Über Uns</h2><br>
 
     <section>
-      <h2>Unsere Philosophie</h2>
+      <h3>Unsere Philosophie</h3>
       <p>Wir wissen, dass der echte Entspannungscode nur dann funktioniert, wenn du in einem gemütlichen Raum voller
         Pixel und Bits bist. Genieße eine Tasse Kaffee aus unserer eigenen „Java“-Kaffeemaschine und plane deine
         nächsten großen Ideen beim Ausblick aus dem „Steve Jobs“-Zimmer. Hier gibt es keine Bugs, nur gute
-        Zeiten!Außerdem gibt es
-        im Nerd-Hotel nicht nur WiFi, sondern auch ein spezielles „NerdFi“ für alle Geeks, Gamer und
+        Zeiten! Außerdem gibt es
+        im Nerd-Hotel "Bits & Bytes" nicht nur WiFi, sondern auch ein spezielles „NerdFi“ für alle Geeks, Gamer und
         Programmierer. Von unseren nerdigen Zimmern bis hin zu unseren Gaming-Lounges ist alles darauf ausgelegt, deine
         geekige Seele zu verwöhnen. Komm vorbei und lass dich überraschen, wie viel Spaß es macht, einfach mal die
         „Escape-Taste“ zu drücken! </p>
     </section>
 
     <section>
-      <h2>Unser Team</h2>
+      <h3>Unser Team</h3>
       <p>Unser engagiertes Team besteht aus erfahrenen Fachleuten, die mit Leidenschaft arbeiten und bereit sind, dein
         Aufenthaltserlebnis auf das nächste Level zu bringen!</p>
 
@@ -46,19 +53,33 @@ export default {
 
 
     <section>
-      <h2>Unsere Geschichte</h2>
-      <p>Die Geschichte unseres Nerd-Hotels beginnt mit drei Freunden, die sich während eines Lehrgangs in Web
-        Development an der Fachhochschule Technikum Wien kennengelernt haben. Der Spaß kam dabei nie zu kurz, und der Kreativität waren
+      <h3>Unsere Geschichte</h3>
+      <p>Die Geschichte des Bits & Bytes beginnt mit drei Freunden, die sich während eines Lehrgangs in Web
+        Development an der Fachhochschule Technikum Wien kennengelernt haben. Der Spaß kam dabei nie zu kurz, und der
+        Kreativität waren
         keine Grenzen gesetzt. Inspiriert von ihrer gemeinsamen Leidenschaft für Technologie, Videospiele und alles
         Nerdige, beschlossen sie, ihren Traum zu verwirklichen und ein Hotel zu eröffnen, das Gleichgesinnte aus aller
         Welt willkommen heißt. Mit einem kreativen Konzept und einem Fokus auf Gemeinschaftsgefühl und Spaß verwandeln
         sie jeden Aufenthalt in ein unvergessliches Erlebnis. Heute ist das Nerd-Hotel nicht nur ein Ort zum
         Übernachten, sondern ein Rückzugsort für alle, die die Welt der Pixel und Programmierung lieben.</p>
+
     </section>
+    <Footer>
+
+    </Footer>
   </div>
 </template>
 
 
+<!-- Styling für das Teamfoto-->
 <style scoped>
+.teamfoto {
+  width: 100%;
+  height: 250px;
+  object-fit: cover; /* Schneidet das Bild bei Bedarf, um Verzerrungen zu vermeiden */
+  margin-bottom: 20px;
+  margin-top: 20px; /* Abstand nach oben zwischen Navbar und Bild */
+
+}
 
 </style>

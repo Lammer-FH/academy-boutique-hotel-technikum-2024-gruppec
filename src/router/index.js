@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Impressum from '../components/Impressum.vue'
-import UeberUnsView from "../views/UeberUnsView.vue"
+import Impressum from '@/views/Impressum.vue'
+import UeberUnsView from "@/views/UeberUnsView.vue"
 import landingView from "@/views/landingView.vue"  // Import LandingView
 
 const router = createRouter({

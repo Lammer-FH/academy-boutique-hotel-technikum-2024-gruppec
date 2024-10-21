@@ -1,14 +1,23 @@
 <script>
 import Cards from "@/components/cards.vue";
 import HotelCard from "@/components/Cards.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "landingView",
-  components: {HotelCard, Cards}
+  components: {HotelCard, Cards, Footer}
 }
 </script>
 
 <template>
+  <!-- Titelbild -->
+  <div class="title-image">
+    <img src="@/assets/Titelbild_LandingPage.png"
+    alt="Titelbild"
+    class="image"
+    />
+  </div>
+
   <b-container class="mt-4">
     <!-- Erste Zeile mit zwei Cards -->
     <b-row>
@@ -115,7 +124,8 @@ export default {
       </b-col>
     </b-row>
   </b-container>
-
+  <Footer>
+  </Footer>
 
 </template>
 

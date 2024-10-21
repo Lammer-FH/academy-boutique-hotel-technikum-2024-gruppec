@@ -56,7 +56,7 @@ export default {
 }
 
 .navbar-logo {
-  height: 30px; /* Verkleinere das Logo auf 30px */
+  height: 40px; /* von 30px auf 40px vergrößert */
   width: auto;
 }
 

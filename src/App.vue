@@ -15,9 +15,12 @@ export default {
   <div id="app">
     <NavBar />
     <RouterView />
+
+
   </div>
 </template>
 
 <style scoped>
+
 
 </style>

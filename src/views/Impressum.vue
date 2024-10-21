@@ -1,9 +1,11 @@
 <script>
+import Footer from "@/components/Footer.vue";
+
 export default {
-  name: 'Impressum'
+  name: 'Impressum',
+  components: {Footer}
 };
 </script>
-
 
 <template>
   <div class="impressum">
@@ -29,7 +31,6 @@ export default {
       Telefon: +43 1 3141592<br>
       Fax: +43 1 3141592 404<br>
       Email: <a href="mailto:nerds@bitsandbytes.at">nerds@bitsandbytes.at</a>
-
     </p>
     <p>
       <b>Anwendbare Rechtsvorschrift:</b> <a href="http://www.ris.bka.gv.at" target="_blank">www.ris.bka.gv.at</a><br>
@@ -58,14 +59,15 @@ export default {
       Quelle: <b><a href="https://www.fairesrecht.at/kostenlos-impressum-erstellen-generator.php" target="_blank">Impressum
       Generator Österreich</a></b>
     </p>
+
+    <Footer>
+    </Footer>
   </div>
 </template>
 
-
 <style scoped>
-
 .impressum {
   margin: 20px;
-  font-family: Arial, sans-serif;
+  /*font-family: Arial, sans-serif;*/
 }
 </style>
