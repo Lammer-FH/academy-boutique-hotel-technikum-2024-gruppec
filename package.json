@@ -8,16 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+"@fawmi/vue-google-maps": "0.9.67",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.1",
     "bootstrap-vue-3": "^0.5.1",
-    "leaflet": "^1.9.4",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
-    "vue-leaflet": "^0.1.0",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "@vitejs/plugin-vue": "^4.3.1",
     "vite": "^4.4.9"
   }

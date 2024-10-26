@@ -1,16 +1,19 @@
 <script>
-
 import Map from '@/components/Map.vue';
+
 export default {
   name: 'Footer',
+  components: {
+    Map,
+  },
 };
-</script>
 
+</script>
 
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="@/assets/nerd-logo.png" alt="Nerd Hotel Logo" class="footer-logo" />
+      <img src="@/assets/nerd-logo.png" alt="Nerd Hotel Logo" class="footer-logo"/>
       <div class="footer-info">
         <p><strong>Bits and Bytes ****</strong></p>
         <p>Höchstädtplatz 6, 1200 Wien</p>
@@ -24,10 +27,9 @@ export default {
       <a href="https://www.facebook.com/NerdHotel" target="_blank">Facebook</a> |
       <a href="https://www.instagram.com/NerdHotel" target="_blank">Instagram</a>
     </div>
-    <!-- Dahin soll die Map
-    <map>
-      Hotelstandort
-    </map>-->
+    <div class="footer-map">Hotelstandort
+      <Map />
+    </div>
   </footer>
 </template>
 
@@ -84,6 +86,20 @@ export default {
 
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+.footer-map {
+  width: 300px;
+  height: 200px;
+  margin: 20px auto 40px auto;
+}
+
+
+@media (max-width: 600px) {
+  .footer-map {
+    width: 100%;
+    height: auto;
+  }
 }
 
 </style>

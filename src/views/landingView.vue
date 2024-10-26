@@ -3,6 +3,7 @@ import Cards from "@/components/cards.vue";
 import HotelCard from "@/components/Cards.vue";
 import Footer from "@/components/Footer.vue";
 
+
 export default {
   name: "landingView",
   components: {HotelCard, Cards, Footer}
@@ -124,6 +125,7 @@ export default {
       </b-col>
     </b-row>
   </b-container>
+
   <Footer>
   </Footer>
 
