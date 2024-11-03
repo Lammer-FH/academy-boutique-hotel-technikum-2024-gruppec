@@ -27,6 +27,22 @@ export default {
       type: String,
       default: "View Details",
     },
+    roomNumber: {
+      type: Number,
+      required: true,
+    },
+    beds: {
+      type: Number,
+      required: true,
+    },
+    pricePerNight: {
+      type: Number,
+      required: true,
+    },
+    extras: {
+      type: Object,
+      required: true,
+    },
   },
 };
 
@@ -43,6 +59,10 @@ export default {
     class="mb-2"
     >
     <b-card-text>
+      <p>Zimmernummer: {{ roomNumber }}</p>
+      <p>Betten: {{ beds }}</p>
+      <p>Preis: {{ pricePerNight }} €</p>
+      <h5>Extras:</h5> <!--hier müssen dann noch diese Icons importiert werden!-->
       {{ description }}
     </b-card-text>
     <b-button :href="link" variant="primary">{{ buttonText }}</b-button>
