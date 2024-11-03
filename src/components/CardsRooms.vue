@@ -49,13 +49,15 @@ export default {
 </script>
 
 <template>
+
   <b-card
     :title="title"
     :img-src="imgSrc"
     :img-alt="imgAlt"
+    :class="room-image"
     img-top
     tag="article"
-    style="max-width: 50rem;"
+    style="max-width: 50rem; image-hight: 200px;"
     class="mb-2"
     >
     <b-card-text>

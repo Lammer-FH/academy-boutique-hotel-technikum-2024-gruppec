@@ -23,7 +23,7 @@ export default defineComponent({
 <template>
 
   <div class="room-info">
-    <h3>Unserer Zimmer</h3>
+    <h3>Unsere Zimmer</h3>
     <h2>Jeder Raum ein Unikat</h2>
     <p>Jedes unserer Zimmer ist nach einer bedeutenden Persönlichkeit aus der Computergeschichte benannt und liebevoll gestaltet,
       um die Inspiration und Innovation dieser Pioniere widerzuspiegeln.
