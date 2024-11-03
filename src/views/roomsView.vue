@@ -2,13 +2,15 @@
 import {defineComponent} from "vue";
 import HotelCard from "@/components/Cards.vue";
 import Zimmer7BernersLee from "@/assets/Karussell/Zimmer7_Berners-Lee.png";
+import Footer from "@/components/Footer.vue";
 
 const roomImages = [
   {src: Zimmer7BernersLee, alt: "Zimmer7"},
 ];
 
 export default defineComponent({
-  components: {HotelCard},
+  name: 'Rooms',
+  components: {HotelCard, Footer},
   data() {
     return {
       roomImages: roomImages,
