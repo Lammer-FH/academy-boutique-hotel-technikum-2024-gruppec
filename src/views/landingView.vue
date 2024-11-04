@@ -1,14 +1,10 @@
 <script setup>
+import { ref, computed } from 'vue';
 import Cards from "@/components/cards.vue";
 import HotelCard from "@/components/Cards.vue";
 import Footer from "@/components/Footer.vue";
 import ImageCarousel from "@/components/ImageCarousel.vue";
-
-
-/*export default {
-  name: "landingView",
-  components: {HotelCard, Cards, Footer, ImageCarousel}
-}*/
+import Pagination from "@/components/Pagination.vue"; // Importiere die Pagination-Komponente
 
 // Importiere die Bilder
 import HotelAussen from "@/assets/Karussell/Hotel_aussen.png";
@@ -27,32 +23,65 @@ import WellnessBereichPool from "@/assets/Karussell/Wellness_Bereich_Pool.png";
 import GamingRoom from "@/assets/Karussell/gaming_room.png";
 import GamingRoom2 from "@/assets/Karussell/gaming_room2.png";
 
-
 // Erstelle das Array mit den Bild-Imports
 const hotelImages = [
-  {src: HotelAussen, alt: "First Slide"},
-  {src: HotelLobby, alt: "Second Slide"},
-  {src: HotelLobby2, alt: "Third Slide"},
-  {src: Zimmer7BernersLee, alt: "Fourth Slide"},
-  {src: Zimmer8LinusTorvalds, alt: "Fifth Slide"},
-  {src: Zimmer9IsaacAsimov, alt: "Sixth Slide"},
-  {src: Zimmer7Bad, alt: "Seventh Slide"},
-  {src: Zimmer8Bad, alt: "Eighth Slide"},
-  {src: Zimmer9Bad, alt: "Ninth Slide"},
-  {src: WellnessBereich, alt: "Tenth Slide"},
-  {src: WellnessBereich2, alt: "Eleventh Slide"},
-  {src: WellnessBereichAussen, alt: "Twelth Slide"},
-  {src: WellnessBereichPool, alt: "Thirteenth Slide"},
-  {src: GamingRoom, alt: "Fourteenth Slide"},
-  {src: GamingRoom2, alt: "Sixteenth Slide"},
-
+  { src: HotelAussen, alt: "First Slide" },
+  { src: HotelLobby, alt: "Second Slide" },
+  { src: HotelLobby2, alt: "Third Slide" },
+  { src: Zimmer7BernersLee, alt: "Fourth Slide" },
+  { src: Zimmer8LinusTorvalds, alt: "Fifth Slide" },
+  { src: Zimmer9IsaacAsimov, alt: "Sixth Slide" },
+  { src: Zimmer7Bad, alt: "Seventh Slide" },
+  { src: Zimmer8Bad, alt: "Eighth Slide" },
+  { src: Zimmer9Bad, alt: "Ninth Slide" },
+  { src: WellnessBereich, alt: "Tenth Slide" },
+  { src: WellnessBereich2, alt: "Eleventh Slide" },
+  { src: WellnessBereichAussen, alt: "Twelth Slide" },
+  { src: WellnessBereichPool, alt: "Thirteenth Slide" },
+  { src: GamingRoom, alt: "Fourteenth Slide" },
+  { src: GamingRoom2, alt: "Sixteenth Slide" },
 ];
+
+// Hotelkarten-Daten
+const hotelCards = [
+  {
+    title: "Tim Berners-Lee",
+    description:
+        "Ein modernes, technologiegetriebenes Hotelzimmer, das die Vision von Tim Berners-Lee, dem Erfinder des World Wide Web, feiert. Mit klaren Linien und einer eleganten, minimalistischen Ästhetik bietet das Zimmer eine harmonische Mischung aus Komfort und Funktionalität.",
+    imgSrc: Zimmer7BernersLee,
+    imgAlt: "Bild von Tim Berners-Lee",
+  },
+  {
+    title: "Linus Torvalds",
+    description:
+        "Ein minimalistisches, industriell inspiriertes Hotelzimmer mit subtilen Hommagen an die Open-Source-Welt, einschließlich Linux-Elementen und dem ikonischen Pinguin-Maskottchen Tux, ideal und perfekt für Technik-Enthusiasten sowie kreative Köpfe und digitale Innovatoren.",
+    imgSrc: Zimmer8LinusTorvalds,
+    imgAlt: "Bild von Linus Torvalds",
+  },
+  {
+    title: "Isaac Asimov",
+    description:
+        "Ein futuristisches Hotelzimmer, das den Visionen von Isaac Asimov, einem der größten Science-Fiction-Autoren, huldigt. Dieses Zimmer ist der ideale Rückzugsort für Wissenschafts-Fans und kreative Denker, die in eine Welt voller Ideen und Möglichkeiten eintauchen möchten.",
+    imgSrc: Zimmer9IsaacAsimov,
+    imgAlt: "Bild von Isaac Asimov",
+  },
+];
+
+const totalItems = hotelCards.length;
+const itemsPerPage = 2; // Anzahl der Hotelkarten pro Seite
+const currentPage = ref(1); // Aktuelle Seite als reactive Variable
+
+// Berechnet die angezeigten Hotelkarten basierend auf der aktuellen Seite
+const paginatedCards = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  return hotelCards.slice(start, start + itemsPerPage);
+});
 </script>
 
 <template>
   <!-- Karussell mit Hotelbildern -->
   <div class="carousel-wrapper">
-    <image-carousel :images="hotelImages"/>
+    <image-carousel :images="hotelImages" />
   </div>
 
   <!-- Überschrift und Text zwischen Karussell und Cards -->
@@ -85,56 +114,42 @@ const hotelImages = [
   <!-- Container für die Karten -->
   <div class="cards-container">
     <b-row>
-      <b-col cols="12" md="4" lg="4">
+      <b-col v-for="card in paginatedCards" :key="card.title" cols="12" md="4" lg="4">
         <HotelCard
-            title="Tim Berners-Lee"
-            description="Ein modernes, technologiegetriebenes Hotelzimmer, das die Vision von Tim Berners-Lee, dem Erfinder des World Wide Web, feiert. Mit klaren Linien und einer eleganten, minimalistischen Ästhetik bietet das Zimmer eine harmonische Mischung aus Komfort und Funktionalität."
-            :imgSrc="Zimmer7BernersLee"
-            imgAlt="Bild von Tim Berners-Lee"
-            button-text="Verfügbarkeit prüfen"
-        />
-      </b-col>
-
-      <b-col cols="12" md="4" lg="4">
-        <HotelCard
-            title="Linus Torvalds"
-            description="Ein minimalistisches, industriell inspiriertes Hotelzimmer mit subtilen Hommagen an die Open-Source-Welt, einschließlich Linux-Elementen und dem ikonischen Pinguin-Maskottchen Tux, ideal und perfekt für Technik-Enthusiasten sowie kreative Köpfe und digitale Innovatoren."
-            :imgSrc="Zimmer8LinusTorvalds"
-            imgAlt="Bild von Linus Torvalds"
-            button-text="Verfügbarkeit prüfen"
-        />
-      </b-col>
-
-      <b-col cols="12" md="4" lg="4">
-        <HotelCard
-            title="Isaac Asimov"
-            description="Ein futuristisches Hotelzimmer, das den Visionen von Isaac Asimov, einem der größten Science-Fiction-Autoren, huldigt. Dieses Zimmer ist der ideale Rückzugsort für Wissenschafts-Fans und kreative Denker, die in eine Welt voller Ideen und Möglichkeiten eintauchen möchten."
-            :imgSrc="Zimmer9IsaacAsimov"
-            imgAlt="Bild von Isaac Asimov"
+            :title="card.title"
+            :description="card.description"
+            :imgSrc="card.imgSrc"
+            :imgAlt="card.imgAlt"
             button-text="Verfügbarkeit prüfen"
         />
       </b-col>
     </b-row>
   </div>
-  <Footer>
-  </Footer>
 
+  <!-- Pagination-Komponente -->
+  <div class="pagination-container">
+    <Pagination
+        :total-items="totalItems"
+        :items-per-page="itemsPerPage"
+        v-model="currentPage"
+    />
+  </div>
+
+  <Footer />
 </template>
 
 <style scoped>
-
 /* Stil für den Absatz mit Überschrift und Text */
 .section-info {
   max-width: 1000px;
   margin: 50px auto;
   text-align: left;
-  padding: 0 20px;    /* Padding für zusätzlichen Abstand */
+  padding: 0 20px; /* Padding für zusätzlichen Abstand */
   overflow-wrap: break-word; /* Umbrüche an zulässigen Stellen */
 }
 
 .section-info h2 {
-  /*font-size: 44px;*/
-  font-size: 2.5rem;  /* Großer Text für Desktop */
+  font-size: 2.5rem; /* Großer Text für Desktop */
   margin-bottom: 30px;
   color: #557878; /* Optionale Textfarbe */
 }
@@ -151,11 +166,6 @@ const hotelImages = [
   max-width: 900px; /* Maximale Breite für Absätze */
 }
 
-/* Abstände für die Cards
-.cards-container {
-  margin-top: 20px; /* Abstand zwischen Karussell und Card
-}*/
-
 /* Styling für den Karten-Container */
 .cards-container {
   display: flex;
@@ -169,4 +179,9 @@ const hotelImages = [
   margin: 10px; /* Abstand zwischen den Cards */
 }
 
+/* Pagination-Container */
+.pagination-container {
+  padding: 20px;
+  text-align: center;
+}
 </style>
