@@ -57,7 +57,7 @@ export default {
     :class="room-image"
     img-top
     tag="article"
-    style="max-width: 50rem; image-hight: 200px;"
+    style="max-width: 50rem; image-height: 200px;"
     class="mb-2"
     >
     <b-card-text>
