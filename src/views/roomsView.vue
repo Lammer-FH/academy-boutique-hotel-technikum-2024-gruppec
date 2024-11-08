@@ -2,13 +2,14 @@
 import {defineComponent} from "vue";
 import CardsRooms from "@/components/CardsRooms.vue"
 import Footer from "@/components/Footer.vue";
+import Pagination from "@/components/Pagination.vue"; // Pagination importiert
 
 import Zimmer_1_AlanTuring from "@/assets/RoomImages/Zimmer_1_AlanTuring.png";
 import Zimmer_2_GraceHopper from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp";
-import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp"; // Richtiges Bild hinterlegen
+import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp"; // Richtiges Bild hinterlegen (Ric)
 import Zimmer_4_JohnVonNeumann from "@/assets/RoomImages/Zimmer_4_JohnVonNeumann.jpg";
 import Zimmer_5_MargaretHamilton from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg";
-import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg"; // Richtiges Bild hinterlegen
+import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg"; // Richtiges Bild hinterlegen (Marina)
 import Zimmer_7_TimBernersLee from "@/assets/RoomImages/Zimmer_7_TimBernersLee.png";
 import Zimmer_8_LinusTorvalds from "@/assets/RoomImages/Zimmer_8_LinusTorvalds.png";
 import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
@@ -30,13 +31,31 @@ const roomImages = [
 
 export default defineComponent({
   name: 'Rooms',
-  components: {Footer, /*roomImages,*/ CardsRooms},
+  components: {Footer, /*roomImages,*/ CardsRooms, Pagination}, // Pagination hinzugefügt
   data() {
     return {
       roomImages: roomImages,
-    }
-  }
-})
+      currentPage: 1, // die aktuelle Seite
+      itemsPerPage: 5, // maximal 5 Zimmer pro Seite
+    };
+  },
+
+  computed: {
+    // Berechnung der Zimmer für die aktuelle Seite
+    paginatedRooms() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = this.currentPage * this.itemsPerPage;
+      return this.roomImages.slice(start, end);  // Zimmer für die aktuelle Seite
+    },
+  },
+  methods: {
+    // Aktualisierung der aktuellen Seite
+    updatePage(page) {
+      this.currentPage = page;
+    },
+  },
+});
+
 </script>
 
 <template>
@@ -55,9 +74,8 @@ export default defineComponent({
 
   <!-- Container für die Karten -->
   <div class="cards-container">
-    <!-- Dynamisches Rendering der Karten mit v-for -->
     <CardsRooms
-        v-for="(room, index) in roomImages"
+        v-for="(room, index) in paginatedRooms"
         :key="index"
         :title="room.alt"
         description="Ein modernes, technologiegetriebenes Hotelzimmer, das die Vision der jeweiligen Persönlichkeit feiert."
@@ -67,27 +85,15 @@ export default defineComponent({
     />
   </div>
 
+
+  <!-- Pagination-Komponente -->
+  <Pagination
+      :totalItems="roomImages.length"
+      :itemsPerPage="itemsPerPage"
+      v-model="currentPage"
+  />
   <Footer />
 </template>
-
-
-<!--<div class="cards-container">
-  <b-row>
-    <CardsRooms
-        title="Grace Hopper"
-        description="Ein modernes, technologiegetriebenes Hotelzimmer, das die Vision von Grace Hopper, einer der bedeutendsten Computerwissenschaftlerinnen des 20. Jahrhunderts, feiert. Inspiriert von ihrem bahnbrechenden Beitrag zur Programmierung und dem Konzept der Programmiersprachen kombiniert das Zimmer innovative Technologien mit einem zeitgemäßen Design. Klare Linien und ein stilvolles, funktionales Interieur schaffen eine einladende Atmosphäre, die Kreativität und Produktivität fördert. Mit intelligenten Lösungen und modernsten Annehmlichkeiten bietet das Zimmer eine perfekte Symbiose aus Komfort und technologischem Fortschritt."
-        :img-src="roomImages[1].src"
-        img-alt="Bild von Zimmer Grace Hopper"
-        button-text="Verfügbarkeit prüfen">
-    </CardsRooms>
-
-
-  </b-row>
-</div>
-
-  <Footer>
-  </Footer>
-</template>-->
 
 <style scoped>
 .room-info {
@@ -111,13 +117,45 @@ export default defineComponent({
   margin: 0 auto;
 }
 
-.room-card {
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr; /* Bei kleineren Bildschirmen nur eine Spalte */
+  }
+}
+
+/*.room-card {
   background-color: #f3f3f3;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+}*/
+
+/*.pagination-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+}*/
+
+button {
+  padding: 8px 12px;
+  background-color: #f2f2f2;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+button:disabled {
+  background-color: #d8d8d8;
+  cursor: not-allowed;
 }
 </style>
+
 
 <!--.room-info {
   max-width: 1000px;
