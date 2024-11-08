@@ -123,19 +123,6 @@ export default defineComponent({
   }
 }
 
-/*.room-card {
-  background-color: #f3f3f3;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-}*/
-
-/*.pagination-container {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 20px;
-}*/
 
 button {
   padding: 8px 12px;
@@ -156,24 +143,3 @@ button:disabled {
 }
 </style>
 
-
-<!--.room-info {
-  max-width: 1000px;
-  margin: 50px auto;
-  text-align: left;
-  overflow-wrap: break-word;
-}
-
-.room-info h2, .room-info h3 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.cards-container {
-  display: flex;
-  justify-content: center;
-
-
-}
-
-</style>-->
