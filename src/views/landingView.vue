@@ -1,10 +1,7 @@
 <script setup>
-import { ref, computed } from 'vue';
-import Cards from "@/components/cards.vue";
 import HotelCard from "@/components/Cards.vue";
 import Footer from "@/components/Footer.vue";
 import ImageCarousel from "@/components/ImageCarousel.vue";
-import Pagination from "@/components/Pagination.vue"; // Importiere die Pagination-Komponente
 
 // Importiere die Bilder
 import HotelAussen from "@/assets/Karussell/Hotel_aussen.png";
@@ -25,24 +22,25 @@ import GamingRoom2 from "@/assets/Karussell/gaming_room2.png";
 
 // Erstelle das Array mit den Bild-Imports
 const hotelImages = [
-  { src: HotelAussen, alt: "First Slide" },
-  { src: HotelLobby, alt: "Second Slide" },
-  { src: HotelLobby2, alt: "Third Slide" },
-  { src: Zimmer7BernersLee, alt: "Fourth Slide" },
-  { src: Zimmer8LinusTorvalds, alt: "Fifth Slide" },
-  { src: Zimmer9IsaacAsimov, alt: "Sixth Slide" },
-  { src: Zimmer7Bad, alt: "Seventh Slide" },
-  { src: Zimmer8Bad, alt: "Eighth Slide" },
-  { src: Zimmer9Bad, alt: "Ninth Slide" },
-  { src: WellnessBereich, alt: "Tenth Slide" },
-  { src: WellnessBereich2, alt: "Eleventh Slide" },
-  { src: WellnessBereichAussen, alt: "Twelth Slide" },
-  { src: WellnessBereichPool, alt: "Thirteenth Slide" },
-  { src: GamingRoom, alt: "Fourteenth Slide" },
-  { src: GamingRoom2, alt: "Sixteenth Slide" },
+  {src: HotelAussen, alt: "First Slide"},
+  {src: HotelLobby, alt: "Second Slide"},
+  {src: HotelLobby2, alt: "Third Slide"},
+  {src: Zimmer7BernersLee, alt: "Fourth Slide"},
+  {src: Zimmer8LinusTorvalds, alt: "Fifth Slide"},
+  {src: Zimmer9IsaacAsimov, alt: "Sixth Slide"},
+  {src: Zimmer7Bad, alt: "Seventh Slide"},
+  {src: Zimmer8Bad, alt: "Eighth Slide"},
+  {src: Zimmer9Bad, alt: "Ninth Slide"},
+  {src: WellnessBereich, alt: "Tenth Slide"},
+  {src: WellnessBereich2, alt: "Eleventh Slide"},
+  {src: WellnessBereichAussen, alt: "Twelth Slide"},
+  {src: WellnessBereichPool, alt: "Thirteenth Slide"},
+  {src: GamingRoom, alt: "Fourteenth Slide"},
+  {src: GamingRoom2, alt: "Sixteenth Slide"},
 ];
 
 // Hotelkarten-Daten
+
 const hotelCards = [
   {
     title: "Tim Berners-Lee",
@@ -67,21 +65,13 @@ const hotelCards = [
   },
 ];
 
-const totalItems = hotelCards.length;
-const itemsPerPage = 2; // Anzahl der Hotelkarten pro Seite
-const currentPage = ref(1); // Aktuelle Seite als reactive Variable
 
-// Berechnet die angezeigten Hotelkarten basierend auf der aktuellen Seite
-const paginatedCards = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  return hotelCards.slice(start, start + itemsPerPage);
-});
 </script>
 
 <template>
   <!-- Karussell mit Hotelbildern -->
   <div class="carousel-wrapper">
-    <image-carousel :images="hotelImages" />
+    <image-carousel :images="hotelImages"/>
   </div>
 
   <!-- Überschrift und Text zwischen Karussell und Cards -->
@@ -114,7 +104,7 @@ const paginatedCards = computed(() => {
   <!-- Container für die Karten -->
   <div class="cards-container">
     <b-row>
-      <b-col v-for="card in paginatedCards" :key="card.title" cols="12" md="4" lg="4">
+      <b-col v-for="card in hotelCards" :key="card.title" cols="12" md="4" lg="4">
         <HotelCard
             :title="card.title"
             :description="card.description"
@@ -126,16 +116,7 @@ const paginatedCards = computed(() => {
     </b-row>
   </div>
 
-  <!-- Pagination-Komponente -->
-  <div class="pagination-container">
-    <Pagination
-        :total-items="totalItems"
-        :items-per-page="itemsPerPage"
-        v-model="currentPage"
-    />
-  </div>
-
-  <Footer />
+  <Footer/>
 </template>
 
 <style scoped>
@@ -179,9 +160,4 @@ const paginatedCards = computed(() => {
   margin: 10px; /* Abstand zwischen den Cards */
 }
 
-/* Pagination-Container */
-.pagination-container {
-  padding: 20px;
-  text-align: center;
-}
 </style>
