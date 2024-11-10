@@ -1,9 +1,11 @@
 <script>
 import {defineComponent} from "vue";
+import axios from "axios";
 import CardsRooms from "@/components/CardsRooms.vue"
 import Footer from "@/components/Footer.vue";
 import Pagination from "@/components/Pagination.vue"; // Pagination importiert
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 import Zimmer_1_AlanTuring from "@/assets/RoomImages/Zimmer_1_AlanTuring.png";
 import Zimmer_2_GraceHopper from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp";
@@ -16,6 +18,7 @@ import Zimmer_8_LinusTorvalds from "@/assets/RoomImages/Zimmer_8_LinusTorvalds.p
 import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
 import Zimmer_10_KatherineJohnson from "@/assets/RoomImages/Zimmer_10_KatherineJohnson.png";
 
+/*
 const roomImages = [
   {
     src: Zimmer_1_AlanTuring,
@@ -195,32 +198,66 @@ const roomImages = [
   },
 },
 
-]
-;
+];
+*/
+
 
 export default defineComponent({
   name: 'Rooms',
-  components: {Footer, CardsRooms, Pagination}, // Pagination hinzugefügt
+  components: { Footer, CardsRooms, Pagination },
   data() {
     return {
-      roomImages: roomImages,
+      roomData: [], // Die dynamischen Zimmerdaten
+      localRoomInfo: [
+        { id: 1, title: "Alan Turing", imgSrc: Zimmer_1_AlanTuring },
+        { id: 2, title: "Grace Hopper", imgSrc: Zimmer_2_GraceHopper },
+        { id: 3, title: "Ada Lovelace", imgSrc: Zimmer_3_AdaLovelace },
+        { id: 4, title: "John von Neumann", imgSrc: Zimmer_4_JohnVonNeumann },
+        { id: 5, title: "Margaret Hamilton", imgSrc: Zimmer_5_MargaretHamilton },
+        { id: 6, title: "Steve Wozniak", imgSrc: Zimmer_6_SteveWozniak },
+        { id: 7, title: "Tim Berners Lee", imgSrc: Zimmer_7_TimBernersLee },
+        { id: 8, title: "Linus Torvalds", imgSrc: Zimmer_8_LinusTorvalds },
+        { id: 9, title: "Isaac Asimov", imgSrc: Zimmer_9_IsaacAsimov },
+        { id: 10, title: "Katherine Johnson", imgSrc: Zimmer_10_KatherineJohnson },
+      ],
       currentPage: 1, // die aktuelle Seite
       itemsPerPage: 5, // maximal 5 Zimmer pro Seite
     };
   },
-
-  computed: {
-    // Berechnung der Zimmer für die aktuelle Seite
-    paginatedRooms() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = this.currentPage * this.itemsPerPage;
-      return this.roomImages.slice(start, end);  // Zimmer für die aktuelle Seite
-    },
+  async created() {
+    await this.fetchRoomsData();
   },
   methods: {
-    // Aktualisierung der aktuellen Seite
+    async fetchRoomsData() {
+      try {
+        // Abrufen der Zimmerdaten aus der API
+        const response = await axios.get("https://boutique-hotel.helmuth-lammer.at/api/v1/rooms");
+
+        // Kombinieren der API-Daten mit den lokalen Bilddaten
+        this.roomData = response.data.map(room => ({
+          ...room,
+          // Hier wird die lokale Bildquelle zugeordnet
+          imgSrc: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.imgSrc || '',
+        }));
+      } catch (error) {
+        console.error("Fehler beim Abrufen der Raumdaten:", error);
+      }
+    },
+
+    // Methode zum Wechseln der Seiten
     updatePage(page) {
       this.currentPage = page;
+    },
+  },
+  computed: {
+    // Berechnung der angezeigten Zimmer auf der aktuellen Seite
+    paginatedRooms() {
+      if (!this.roomData || this.roomData.length === 0) {
+        return []; // Gibt ein leeres Array zurück, wenn keine Zimmerdaten vorhanden sind
+      }
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.roomData.slice(start, end); // Filtere die Zimmer für die aktuelle Seite
     },
   },
 });
@@ -248,28 +285,29 @@ export default defineComponent({
     <CardsRooms
         v-for="(room, index) in paginatedRooms"
         :key="index"
-        :title="room.alt"
-        description="Ein modernes, technologiegetriebenes Hotelzimmer, das die Vision der jeweiligen Persönlichkeit feiert."
-        :img-src="room.src"
-        :img-alt="room.alt"
+        :title="room.title"
+        :img-src="room.imgSrc"
+        :img-alt="room.title"
+        :description="room.description"
         button-text="Verfügbarkeit prüfen"
         :roomNumber="room.roomNumber"
         :beds="room.beds"
         :pricePerNight="room.pricePerNight"
         :extras="room.extras"
     />
-
   </div>
 
 
   <!-- Pagination-Komponente -->
   <Pagination
-      :totalItems="roomImages.length"
+      :totalItems="roomData.length"
       :itemsPerPage="itemsPerPage"
       v-model="currentPage"
   />
   <Footer/>
+
 </template>
+
 
 <style scoped>
 .room-info {
