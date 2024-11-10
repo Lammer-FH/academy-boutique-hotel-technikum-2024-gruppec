@@ -154,10 +154,4 @@ const hotelCards = [
   margin-top: 20px;
 }
 
-/* Stil für einzelne Karten */
-.cards-container .b-col {
-  max-width: 300px; /* Maximale Breite für die Cards */
-  margin: 10px; /* Abstand zwischen den Cards */
-}
-
 </style>

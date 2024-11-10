@@ -1,6 +1,19 @@
 <script>
 export default {
+
   name: "HotelCard",
+  props: {
+    title: { type: String, required: true },
+    imgSrc: { type: String, required: true },
+    imgAlt: { type: String, default: "Room Image" },
+    description: { type: String, required: true },
+    link: { type: String, default: "#" },
+    buttonText: { type: String, default: "View Details" },
+  },
+};
+
+
+  /*name: "HotelCard",
   props: {
     title: {
       type: String,
@@ -27,7 +40,8 @@ export default {
       default: "View Details",
     },
   },
-};
+};*/
+
 </script>
 
 <template>
@@ -37,9 +51,11 @@ export default {
       :img-alt="imgAlt"
       img-top
       tag="article"
-      style="max-width: 30rem;"
       class="mb-2"
+      style="max-width: 20rem;"
   >
+
+
     <b-card-text>
       {{ description }}
     </b-card-text>
@@ -50,5 +66,7 @@ export default {
 
 
 <style scoped>
+
+
 
 </style>
