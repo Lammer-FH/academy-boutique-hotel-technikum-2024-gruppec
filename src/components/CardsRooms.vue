@@ -44,6 +44,7 @@ export default {
             v-if="extra"></i>
       </div>
       <p>{{ description }}</p>
+      <b-button href="#" variant="primary">Check Availability</b-button>
     </b-card-text>
   </b-card>
 </template>
