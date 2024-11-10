@@ -19,167 +19,6 @@ import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
 import Zimmer_10_KatherineJohnson from "@/assets/RoomImages/Zimmer_10_KatherineJohnson.png";
 
 /*
-const roomImages = [
-  {
-    src: Zimmer_1_AlanTuring,
-    alt: "Alan Turing",
-    roomNumber: 1,
-    beds: 2,
-    pricePerNight: 120,
-    extras: {
-      bathroom: 1,
-      minibar: 1,
-      television: 1,
-      livingroom: 0,
-      aircondition: 1,
-      wifi: 1,
-      breakfast: 1,
-      handicappedAccessible: 1
-    }
-  },
-  {
-    src: Zimmer_2_GraceHopper,
-    alt: "Grace Hopper",
-    roomNumber: 2,
-    beds: 1,
-    pricePerNight: 100,
-    extras: {
-      bathroom: 1,
-      minibar: 1,
-      television: 1,
-      livingroom: 1,
-      aircondition: 1,
-      wifi: 1,
-      breakfast: 1,
-      handicappedAccessible: 0
-    }
-  },
-  {
-    src: Zimmer_3_AdaLovelace,
-    alt: "Ada Lovelace",
-    roomNumber: 3,
-    beds: 1,
-    pricePerNight: 110,
-    extras: {
-      bathroom: 1,
-      minibar: 0,
-      television: 1,
-      livingroom: 1,
-      aircondition: 0,
-      wifi: 1,
-      breakfast: 0,
-      handicappedAccessible: 1,
-    },
-  },
-
-  {
-    src: Zimmer_4_JohnVonNeumann,
-    alt: "John von Neumann",
-    roomNumber: 4,
-    beds: 1,
-    pricePerNight: 120,
-    extras: {
-      bathroom: 1,
-      minibar: 0,
-      television: 1,
-      livingroom: 1,
-      aircondition: 0,
-      wifi: 1,
-      breakfast: 0,
-      handicappedAccessible: 1,
-    },
-  },
-
-  {
-    src: Zimmer_5_MargaretHamilton,
-    alt: "Margaret Hamilton",
-    roomNumber: 5,
-    beds: 1,
-    pricePerNight: 120,
-    extras: {
-      bathroom: 1,
-      minibar: 0,
-      television: 1,
-      livingroom: 1,
-      aircondition: 0,
-      wifi: 1,
-      breakfast: 0,
-      handicappedAccessible: 1,
-    },
-  },
-
-{
-  src: Zimmer_6_SteveWozniak,
-  alt: "Steve Wozniak",
-  roomNumber: 6,
-  beds: 1,
-  pricePerNight: 130,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
-{
-  src: Zimmer_7_TimBernersLee,
-  alt: "Tim Berners Lee",
-  roomNumber: 7,
-  beds: 1,
-  pricePerNight: 140,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
-{
-  src: Zimmer_8_LinusTorvalds,
-  alt: "Linus Torvalds",
-  roomNumber: 8,
-  beds: 1,
-  pricePerNight: 100,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
-{
-  src: Zimmer_9_IsaacAsimov,
-  alt: "Isaac Asimov",
-  roomNumber: 9,
-  beds: 1,
-  pricePerNight: 120,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
 {
   src: Zimmer_10_KatherineJohnson,
   alt: "Katherine Johnson",
@@ -209,16 +48,16 @@ export default defineComponent({
     return {
       roomData: [], // Die dynamischen Zimmerdaten
       localRoomInfo: [
-        { id: 1, title: "Alan Turing", imgSrc: Zimmer_1_AlanTuring },
-        { id: 2, title: "Grace Hopper", imgSrc: Zimmer_2_GraceHopper },
-        { id: 3, title: "Ada Lovelace", imgSrc: Zimmer_3_AdaLovelace },
-        { id: 4, title: "John von Neumann", imgSrc: Zimmer_4_JohnVonNeumann },
-        { id: 5, title: "Margaret Hamilton", imgSrc: Zimmer_5_MargaretHamilton },
-        { id: 6, title: "Steve Wozniak", imgSrc: Zimmer_6_SteveWozniak },
-        { id: 7, title: "Tim Berners Lee", imgSrc: Zimmer_7_TimBernersLee },
-        { id: 8, title: "Linus Torvalds", imgSrc: Zimmer_8_LinusTorvalds },
-        { id: 9, title: "Isaac Asimov", imgSrc: Zimmer_9_IsaacAsimov },
-        { id: 10, title: "Katherine Johnson", imgSrc: Zimmer_10_KatherineJohnson },
+        { id: 1, localTitle: "Alan Turing", imgSrc: Zimmer_1_AlanTuring, description: "Test-text" },
+        { id: 2, localTitle: "Grace Hopper", imgSrc: Zimmer_2_GraceHopper },
+        { id: 3, localTitle: "Ada Lovelace", imgSrc: Zimmer_3_AdaLovelace },
+        { id: 4, localTitle: "John von Neumann", imgSrc: Zimmer_4_JohnVonNeumann },
+        { id: 5, localTitle: "Margaret Hamilton", imgSrc: Zimmer_5_MargaretHamilton },
+        { id: 6, localTitle: "Steve Wozniak", imgSrc: Zimmer_6_SteveWozniak },
+        { id: 7, localTitle: "Tim Berners Lee", imgSrc: Zimmer_7_TimBernersLee },
+        { id: 8, localTitle: "Linus Torvalds", imgSrc: Zimmer_8_LinusTorvalds },
+        { id: 9, localTitle: "Isaac Asimov", imgSrc: Zimmer_9_IsaacAsimov },
+        { id: 10, localTitle: "Katherine Johnson", imgSrc: Zimmer_10_KatherineJohnson },
       ],
       currentPage: 1, // die aktuelle Seite
       itemsPerPage: 5, // maximal 5 Zimmer pro Seite
@@ -236,8 +75,15 @@ export default defineComponent({
         // Kombinieren der API-Daten mit den lokalen Bilddaten
         this.roomData = response.data.map(room => ({
           ...room,
-          // Hier wird die lokale Bildquelle zugeordnet
+          // Hier werden lokale Infos zugeordnet
+          title: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.localTitle || '',
           imgSrc: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.imgSrc || '',
+          description: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.description || 'Kein Beschreibung verfügbar',
+          extras: room.extras.reduce( (acc, extra) => {
+            const [key, value] = Object.entries(extra)[0];
+            acc[key] = value;
+            return acc;
+          }, {}),
         }));
       } catch (error) {
         console.error("Fehler beim Abrufen der Raumdaten:", error);
@@ -285,12 +131,12 @@ export default defineComponent({
     <CardsRooms
         v-for="(room, index) in paginatedRooms"
         :key="index"
-        :title="room.title"
+        :localTitle="room.localTitle"
         :img-src="room.imgSrc"
-        :img-alt="room.title"
+        :img-alt="room.roomsName"
         :description="room.description"
         button-text="Verfügbarkeit prüfen"
-        :roomNumber="room.roomNumber"
+        :roomsNumber="room.roomsNumber"
         :beds="room.beds"
         :pricePerNight="room.pricePerNight"
         :extras="room.extras"

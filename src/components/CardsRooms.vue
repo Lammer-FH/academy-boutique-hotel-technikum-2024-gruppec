@@ -2,11 +2,11 @@
 export default {
   name: "CardsRooms",
   props: {
-    title: { type: String, required: true },
+    localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
     imgAlt: { type: String, default: "Room Image" },
     description: { type: String, required: true },
-    roomNumber: { type: Number, required: true },
+    roomsNumber: { type: Number, required: true },
     beds: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
     extras: { type: Object, required: true },
@@ -29,14 +29,19 @@ export default {
 </script>
 
 <template>
-  <b-card :title="title" :img-src="imgSrc" :img-alt="imgAlt" img-top>
+  <b-card :title="localTitle" :img-src="imgSrc" :img-alt="imgAlt" img-top>
     <b-card-text>
-      <p>Zimmernummer: {{ roomNumber }}</p>
+      <p>Zimmernummer: {{ roomsNumber }}</p>
       <p>Betten: {{ beds }}</p>
       <p>Preis: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
       <div class="extras-icons">
-        <i v-for="(extra, key) in extras" :key="key" :class="iconMap[key].iconClass" :title="iconMap[key].label" v-if="extra"></i>
+        <i
+            v-for="(extra, key) in extras"
+            :key="key"
+            :class="iconMap[key]?.iconClass"
+            :title="iconMap[key]?.label"
+            v-if="extra"></i>
       </div>
       <p>{{ description }}</p>
     </b-card-text>
@@ -50,6 +55,13 @@ export default {
   margin-top: 10px;
   font-size: 1.2rem;
   color: #5a5a5a;
+}
+
+/* Einheitliche Größe für alle Bilder */
+b-card img {
+  width: 100%; /* Breite des Bildes anpassen */
+  height: 200px; /* Feste Höhe für alle Bilder */
+  object-fit: cover; /* Bild füllt das Container aus */
 }
 
 </style>
