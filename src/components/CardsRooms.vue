@@ -15,8 +15,7 @@ export default {
     extras: {
       type: Object,
       required: true,
-      // Beispiel für extras:
-      // { bathroom: 1, minibar: 1, television: 1, livingroom: 0, aircondition: 1, wifi: 1, breakfast: 1, handicappedAccessible: 1 }
+
     },
   },
   data() {
@@ -39,14 +38,24 @@ export default {
 
 <template>
   <b-card
-      :title="title"
-      :img-src="imgSrc"
-      :img-alt="imgAlt"
-      img-top
       tag="article"
-      style="max-width: 50rem; image-height: 200px;"
       class="mb-2"
+      style="max-width: 50rem;"
   >
+    <!--:title="title"-->
+    <!--:img-src="imgSrc"-->
+    <!--:img-alt="imgAlt"-->
+    <!--img-top-->
+
+
+    <!-- Bildcontainer für gleiche Größe-->
+    <div class="image-container">
+      <img :src="imgSrc" :alt="imgAlt" class="room-image"/>
+    </div>
+
+    <!-- Titel unter dem Bild -->
+    <h3>{{ title }}</h3>
+
     <b-card-text>
       <p>Zimmernummer: {{ roomNumber }}</p>
       <p>Betten: {{ beds }}</p>
@@ -77,5 +86,23 @@ export default {
   font-size: 1.2rem;
   color: #5a5a5a;
 }
+
+/* Stellt sicher, dass das Bild die gesamte Breite ausfüllt */
+.image-container {
+  width: 100%;
+  height: 400px; /* Höhe des Bildes anpassen */
+  overflow: hidden; /* Überschüssige Bildteile werden abgeschnitten */
+  margin-bottom: 20px; /* Abstand zum Text unten */
+}
+
+
+.room-image {
+  width: 100%; /* Bild auf volle Breite setzen */
+  height: 100%; /* Bild auf volle Höhe setzen */
+  object-fit: cover; /* Bild wird skaliert und abgeschnitten, damit es immer die gesamte Fläche ausfüllt */
+  object-position: center; /* Bild bleibt mittig ausgerichtet */
+}
+
+
 
 </style>

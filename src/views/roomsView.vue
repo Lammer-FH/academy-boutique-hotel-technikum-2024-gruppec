@@ -7,10 +7,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Zimmer_1_AlanTuring from "@/assets/RoomImages/Zimmer_1_AlanTuring.png";
 import Zimmer_2_GraceHopper from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp";
-import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp"; // Richtiges Bild hinterlegen (Ric)
+import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_3_AdaLovelace.png"; // Richtiges Bild hinterlegen (Ric)
 import Zimmer_4_JohnVonNeumann from "@/assets/RoomImages/Zimmer_4_JohnVonNeumann.jpg";
 import Zimmer_5_MargaretHamilton from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg";
-import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg"; // Richtiges Bild hinterlegen (Marina)
+import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_6_SteveWozniak.jpg"; // Richtiges Bild hinterlegen (Marina)
 import Zimmer_7_TimBernersLee from "@/assets/RoomImages/Zimmer_7_TimBernersLee.png";
 import Zimmer_8_LinusTorvalds from "@/assets/RoomImages/Zimmer_8_LinusTorvalds.png";
 import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
