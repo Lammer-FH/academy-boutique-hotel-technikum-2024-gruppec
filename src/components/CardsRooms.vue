@@ -62,7 +62,7 @@ export default {
       <p>Preis: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
       <div class="extras-icons">
-        <i v-if="extras.bathroom" class="bi bi-shower" title="Badezimmer"></i>
+        <i v-if="extras.bathroom" class="bi bi-badge-wc" title="Badezimmer"></i>
         <i v-if="extras.minibar" class="bi bi-cup-straw" title="Minibar"></i>
         <i v-if="extras.television" class="bi bi-tv" title="Fernseher"></i>
         <i v-if="extras.livingroom" class="bi bi-door-closed" title="Wohnzimmer"></i>
