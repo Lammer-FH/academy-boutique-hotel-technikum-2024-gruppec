@@ -8,11 +8,12 @@ export default {
 </script>
 
 <template>
-
+  <b-container fluid class="p-0">
   <!-- Teamfoto eingefügt-->
   <img src="@/assets/nerds_teamfoto.png" alt="Unser nerdiges Team" class="teamfoto">
+  </b-container>
+  <b-container class="ueber-uns text-start mt-5 mx-auto px-5">
 
-  <div class="ueber-uns">
     <h2>Über Uns</h2><br>
 
     <section>
@@ -67,7 +68,7 @@ export default {
     <Footer>
 
     </Footer>
-  </div>
+  </b-container>
 </template>
 
 
@@ -77,6 +78,7 @@ export default {
   width: 100%;
   height: 250px;
   object-fit: cover; /* Schneidet das Bild bei Bedarf, um Verzerrungen zu vermeiden */
+  object-position: 70% 30%;
   margin-bottom: 20px;
   margin-top: 20px; /* Abstand nach oben zwischen Navbar und Bild */
 

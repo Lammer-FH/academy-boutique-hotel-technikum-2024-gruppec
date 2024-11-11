@@ -8,8 +8,8 @@ export default {
 </script>
 
 <template>
-  <div class="impressum">
-    <h4>Impressum</h4>
+  <b-container class="impressum-container text-start mt-5 pt-5 mx-auto px-5">
+    <h2>Impressum</h2>
     <p>
       <b>Informationen und Offenlegung gemäß &sect;5 (1) ECG, &sect; 25 MedienG, &sect; 63 GewO und &sect; 14 UGB</b>
     </p>
@@ -62,7 +62,7 @@ export default {
 
     <Footer>
     </Footer>
-  </div>
+  </b-container>
 </template>
 
 <style scoped>

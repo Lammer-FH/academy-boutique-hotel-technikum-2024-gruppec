@@ -69,10 +69,11 @@ const hotelCards = [
 </script>
 
 <template>
+
+  <b-container class="mt-5 pt-4">
   <!-- Karussell mit Hotelbildern -->
-  <div class="carousel-wrapper">
     <image-carousel :images="hotelImages"/>
-  </div>
+  </b-container>
 
   <!-- Überschrift und Text zwischen Karussell und Cards -->
   <div class="section-info">
