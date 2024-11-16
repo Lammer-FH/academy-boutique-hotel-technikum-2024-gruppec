@@ -9,7 +9,7 @@ export default {
     roomsNumber: { type: Number, required: true },
     beds: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
-    extras: { type: Object, required: true },
+    extras: { type: Object, required: true }
   },
   data() {
     return {
@@ -29,25 +29,38 @@ export default {
 </script>
 
 <template>
-  <b-card :title="localTitle" :img-src="imgSrc" :img-alt="imgAlt" img-top>
+  <b-card
+      tag="article" class="mb-2" style="max-width: 50rem;">
+
+    <!-- Bildcontainer für gleiche Größe-->
+    <div class="image-container">
+      <img :src="imgSrc" :alt="imgAlt" class="room-image"/>
+    </div>
+    <!-- Titel unter dem Bild -->
+    <h3>{{ localTitle }}</h3>
+
     <b-card-text>
       <p>Zimmernummer: {{ roomsNumber }}</p>
       <p>Betten: {{ beds }}</p>
       <p>Preis: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
       <div class="extras-icons">
-        <i
-            v-for="(extra, key) in extras"
-            :key="key"
-            :class="iconMap[key]?.iconClass"
-            :title="iconMap[key]?.label"
-            v-if="extra"></i>
+        <i v-if="extras.bathroom" class="bi bi-badge-wc" title="Badezimmer"></i>
+        <i v-if="extras.minibar" class="bi bi-cup-straw" title="Minibar"></i>
+        <i v-if="extras.television" class="bi bi-tv" title="Fernseher"></i>
+        <i v-if="extras.livingroom" class="bi bi-door-closed" title="Wohnzimmer"></i>
+        <i v-if="extras.aircondition" class="bi bi-snow" title="Klimaanlage"></i>
+        <i v-if="extras.wifi" class="bi bi-wifi" title="WLAN"></i>
+        <i v-if="extras.breakfast" class="bi bi-egg-fried" title="Frühstück"></i>
+        <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
       <p>{{ description }}</p>
       <b-button href="#" variant="primary">Check Availability</b-button>
     </b-card-text>
   </b-card>
+
 </template>
+
 
 <style scoped>
 .extras-icons {
@@ -58,11 +71,18 @@ export default {
   color: #5a5a5a;
 }
 
-/* Einheitliche Größe für alle Bilder */
-b-card img {
-  width: 100%;/* Breite des Bildes anpassen */
-  height: 200px !important; /* Feste Höhe für alle Bilder */
-  object-fit: cover; /* Bild füllt das Container aus */
+.image-container {
+  width: 100%;
+  height: 400px; /* Höhe des Containers */
+  overflow: hidden; /* Überschüssige Bildteile werden abgeschnitten */
+  margin-bottom: 20px; /* Abstand zum Text unten */
+}
+
+.room-image, b-card img {
+  width: 100%; /* Breite des Bildes */
+  height: 200px; /* Höhe für Bilder in Karten */
+  object-fit: cover; /* Skaliert das Bild */
+  object-position: center; /* Bild bleibt mittig */
 }
 
 </style>
