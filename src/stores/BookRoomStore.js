@@ -30,9 +30,9 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails;
 
             //temporäre testdaten:
-            const testRoomId = roomId || '1';
-            const testFromDate = fromDate || '2024-01-01';
-            const testToDate = toDate || '2024-01-08';
+            const testRoomId = roomId || '10';
+            const testFromDate = fromDate || '2027-07-01';
+            const testToDate = toDate || '2027-07-02';
 
             if (!testRoomId || !testFromDate || !testToDate || !firstname || !lastname || !birthdate || !email) {
                 this.error = 'Bitte alle Felder ausfüllen.';
@@ -59,8 +59,12 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                         'Content-Type': 'application/json',
                     }
                 });
-                this.bookingId = response.data.id; // Erfolgreiche Buchung
-                this.error = null;
+                if (response.status === 201) {
+                    this.bookingId = response.data.id;
+                    this.error = null;
+                } else {
+                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Unbekannter Fehler'}`;
+                }
             } catch (error) {
                 console.log('API Error:', error);
                 this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten.';
