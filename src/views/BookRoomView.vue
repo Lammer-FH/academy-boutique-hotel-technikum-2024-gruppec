@@ -11,8 +11,8 @@ export default {
   setup() {
     const store = useBookRoomStore();
     const handleBooking = async (formData) => {
+      console.log(formData);
       store.setBookingDetails(formData);
-
       if (formData.email !== formData.confirmEmail) {
         store.error = 'Die E-Mails stimmen nicht überein.';
         return;

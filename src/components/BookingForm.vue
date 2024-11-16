@@ -7,6 +7,7 @@ export default {
     const form = reactive({
       firstname: '',
       lastname: '',
+      birthdate: '',
       email: '',
       confirmEmail: '',
       breakfast: false,
@@ -19,7 +20,7 @@ export default {
       // Sende die Daten an die übergeordnete Komponente
       emit('submitBooking', { ...form });
       setTimeout(() => {
-        isLoading.value = false; // Simulierte Ladezeit
+        isLoading.value = false;
       }, 1000);
     };
 
@@ -57,6 +58,17 @@ export default {
 
       <b-row>
         <b-col cols="12" md="6">
+          <b-form-group label="Geburtsdatum:" label-for="birthdate-input" label-cols-lg="4">
+            <b-form-input
+                id="birthdate-input"
+                v-model="form.birthdate"
+                type="date"
+                required
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col cols="12" md="6">
           <b-form-group label="E-Mail:" label-for="email-input" label-cols-lg="4">
             <b-form-input
                 id="email-input"
@@ -67,7 +79,9 @@ export default {
             ></b-form-input>
           </b-form-group>
         </b-col>
+      </b-row>
 
+      <b-row>
         <b-col cols="12" md="6">
           <b-form-group label="E-Mail bestätigen:" label-for="confirm-email-input" label-cols-lg="4">
             <b-form-input
@@ -79,9 +93,7 @@ export default {
             ></b-form-input>
           </b-form-group>
         </b-col>
-      </b-row>
 
-      <b-row>
         <b-col cols="12">
           <b-form-group label="Frühstück gewünscht:" label-for="breakfast-checkbox">
             <b-form-checkbox
@@ -103,6 +115,7 @@ export default {
       </b-row>
     </b-form>
   </b-container>
+
 </template>
 
 <style scoped>
