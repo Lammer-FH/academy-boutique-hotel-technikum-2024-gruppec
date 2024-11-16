@@ -20,27 +20,26 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
     }),
 
     actions: {
-        // Methode zum Setzen der Buchungsdetails
         setBookingDetails(details) {
             this.bookingDetails = { ...this.bookingDetails, ...details };
         },
-
-        // Methode zum Absenden der Buchung
         async bookRoom() {
             const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails;
 
-            //temporäre testdaten:
+            /*temporäre testdaten:
             const testRoomId = roomId || '10';
             const testFromDate = fromDate || '2027-07-01';
             const testToDate = toDate || '2027-07-02';
 
-            if (!testRoomId || !testFromDate || !testToDate || !firstname || !lastname || !birthdate || !email) {
+             */
+
+            if (!roomId || !fromDate || !toDate || !firstname || !lastname || !birthdate || !email) {
                 this.error = 'Bitte alle Felder ausfüllen.';
                 return;
             }
 
-            // URL mit Platzhaltern ersetzen
-            const apiUrl = `https://boutique-hotel.helmuth-lammer.at/api/v1/room/${testRoomId}/from/${testFromDate}/to/${testToDate}`;
+            // URL mit Platzhaltern ersetzen bei Testdaten
+            const apiUrl = `https://boutique-hotel.helmuth-lammer.at/api/v1/room/${roomId}/from/${fromDate}/to/${toDate}`;
 
             const data = {
                 firstname,
