@@ -1,6 +1,9 @@
 <script>
+import ToggleCollapse from "@/components/ToggleCollapse.vue";
+
 export default {
   name: "CardsRooms",
+  components: {ToggleCollapse},
   props: {
     localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
@@ -55,7 +58,8 @@ export default {
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
       <p>{{ description }}</p>
-      <b-button href="#" variant="primary">Check Availability</b-button>
+      <ToggleCollapse :collapseId="'collapse-' + roomsNumber" />
+      <!--<b-button href="#" variant="primary">Check Availability</b-button>-->
     </b-card-text>
   </b-card>
 
