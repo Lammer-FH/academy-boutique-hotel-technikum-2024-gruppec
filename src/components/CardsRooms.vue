@@ -80,7 +80,7 @@ export default {
 
 .room-image, b-card img {
   width: 100%; /* Breite des Bildes */
-  height: 200px; /* Höhe für Bilder in Karten */
+  height: 400px; /* Höhe für Bilder in Karten */
   object-fit: cover; /* Skaliert das Bild */
   object-position: center; /* Bild bleibt mittig */
 }
