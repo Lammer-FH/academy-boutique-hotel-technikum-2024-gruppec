@@ -62,9 +62,12 @@ export default {
 </template>
 
 <style scoped>
-
+body {
+  padding-top: 70px;
+}
 h1 {
   font-size: 2rem;
   font-weight: bold;
+  padding-top: 100px;
 }
 </style>

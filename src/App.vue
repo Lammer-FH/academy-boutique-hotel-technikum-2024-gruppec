@@ -14,13 +14,16 @@ export default {
 <template>
   <div id="app">
     <NavBar />
-    <RouterView />
-
-
+    <div class="main-container">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style scoped>
 
+.main-container {
+  padding-top: 70px;
+}
 
 </style>
