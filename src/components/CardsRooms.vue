@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       iconMap: {
-        bathroom: { iconClass: "bi bi-shower", label: "Badezimmer" },
+        bathroom: { iconClass: "bi bi-badge-wc", label: "Badezimmer" },
         minibar: { iconClass: "bi bi-cup-straw", label: "Minibar" },
         television: { iconClass: "bi bi-tv", label: "Fernseher" },
         livingroom: { iconClass: "bi bi-door-closed", label: "Wohnzimmer" },
@@ -60,8 +60,8 @@ export default {
 
 /* Einheitliche Größe für alle Bilder */
 b-card img {
-  width: 100%; /* Breite des Bildes anpassen */
-  height: 200px; /* Feste Höhe für alle Bilder */
+  width: 100%;/* Breite des Bildes anpassen */
+  height: 200px !important; /* Feste Höhe für alle Bilder */
   object-fit: cover; /* Bild füllt das Container aus */
 }
 
