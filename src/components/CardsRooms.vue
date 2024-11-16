@@ -1,28 +1,20 @@
 <script>
-
 export default {
   name: "CardsRooms",
   props: {
-    title: { type: String, required: true },
+    localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
     imgAlt: { type: String, default: "Room Image" },
     description: { type: String, required: true },
-    link: { type: String, default: "#" },
-    buttonText: { type: String, default: "View Details" },
-    roomNumber: { type: Number, required: true },
+    roomsNumber: { type: Number, required: true },
     beds: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
-    extras: {
-      type: Object,
-      required: true,
-
-    },
+    extras: { type: Object, required: true }
   },
   data() {
     return {
-      // Icon-Mapping für die Extras
       iconMap: {
-        bathroom: { iconClass: "bi bi-shower", label: "Badezimmer" },
+        bathroom: { iconClass: "bi bi-badge-wc", label: "Badezimmer" },
         minibar: { iconClass: "bi bi-cup-straw", label: "Minibar" },
         television: { iconClass: "bi bi-tv", label: "Fernseher" },
         livingroom: { iconClass: "bi bi-door-closed", label: "Wohnzimmer" },
@@ -38,26 +30,17 @@ export default {
 
 <template>
   <b-card
-      tag="article"
-      class="mb-2"
-      style="max-width: 50rem;"
-  >
-    <!--:title="title"-->
-    <!--:img-src="imgSrc"-->
-    <!--:img-alt="imgAlt"-->
-    <!--img-top-->
-
+      tag="article" class="mb-2" style="max-width: 50rem;">
 
     <!-- Bildcontainer für gleiche Größe-->
     <div class="image-container">
       <img :src="imgSrc" :alt="imgAlt" class="room-image"/>
     </div>
-
     <!-- Titel unter dem Bild -->
-    <h3>{{ title }}</h3>
+    <h3>{{ localTitle }}</h3>
 
     <b-card-text>
-      <p>Zimmernummer: {{ roomNumber }}</p>
+      <p>Zimmernummer: {{ roomsNumber }}</p>
       <p>Betten: {{ beds }}</p>
       <p>Preis: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
@@ -71,10 +54,11 @@ export default {
         <i v-if="extras.breakfast" class="bi bi-egg-fried" title="Frühstück"></i>
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
-      {{ description }}
+      <p>{{ description }}</p>
+      <b-button href="#" variant="primary">Check Availability</b-button>
     </b-card-text>
-    <b-button :href="link" variant="primary">{{ buttonText }}</b-button>
   </b-card>
+
 </template>
 
 
@@ -87,22 +71,18 @@ export default {
   color: #5a5a5a;
 }
 
-/* Stellt sicher, dass das Bild die gesamte Breite ausfüllt */
 .image-container {
   width: 100%;
-  height: 400px; /* Höhe des Bildes anpassen */
+  height: 400px; /* Höhe des Containers */
   overflow: hidden; /* Überschüssige Bildteile werden abgeschnitten */
   margin-bottom: 20px; /* Abstand zum Text unten */
 }
 
-
-.room-image {
-  width: 100%; /* Bild auf volle Breite setzen */
-  height: 100%; /* Bild auf volle Höhe setzen */
-  object-fit: cover; /* Bild wird skaliert und abgeschnitten, damit es immer die gesamte Fläche ausfüllt */
-  object-position: center; /* Bild bleibt mittig ausgerichtet */
+.room-image, b-card img {
+  width: 100%; /* Breite des Bildes */
+  height: 200px; /* Höhe für Bilder in Karten */
+  object-fit: cover; /* Skaliert das Bild */
+  object-position: center; /* Bild bleibt mittig */
 }
-
-
 
 </style>
