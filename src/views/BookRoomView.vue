@@ -3,13 +3,41 @@
 import { useBookRoomStore } from '@/stores/BookRoomStore';
 import BookingForm from '@/components/BookingForm.vue';
 import Footer from "@/components/Footer.vue";
+import BookingConfirmation from "@/components/BookingConfirmation.vue";
+import BookingReview from "@/components/BookingReview.vue";
+import { ref } from 'vue';
 export default {
   name: "BookRoomView",
   components: {
-    BookingForm, Footer
+    BookingForm, Footer, BookingConfirmation, BookingReview
   },
   setup() {
     const store = useBookRoomStore();
+
+    const roomId = store.bookingDetails.roomId || 10; // Standardwert für roomId
+    const fromDate = store.bookingDetails.fromDate || new Date('2027-07-03');
+    const toDate = store.bookingDetails.toDate || new Date('2027-07-04');
+
+    const isSuccessModalVisible = ref(false);
+    const isReviewModalVisible = ref(false);
+    const formData = ref({});
+
+    const handleReview = (data) => {
+      formData.value = data;
+      isReviewModalVisible.value = true;
+    };
+
+    const finalizeBooking = async () => {
+      store.setBookingDetails(formData.value);
+      await store.bookRoom();
+
+      if (store.bookingId) {
+        isReviewModalVisible.value = false; // Schließt das Review-Modal
+        isSuccessModalVisible.value = true; // Öffnet das Erfolgsmodal
+      }
+    };
+
+    /*
     const handleBooking = async (formData) => {
       console.log(formData);
       store.setBookingDetails(formData);
@@ -17,12 +45,16 @@ export default {
         store.error = 'Die E-Mails stimmen nicht überein.';
         return;
       }
-
       // Buchung absenden
       await store.bookRoom();
+      if (store.bookingId) {
+        isSuccessModalVisible.value = true;
+      }
     };
 
-    return { store, handleBooking };
+     */
+
+    return { store, roomId, fromDate, toDate, handleReview, isSuccessModalVisible, isReviewModalVisible, formData, finalizeBooking };
   },
 };
 
@@ -35,17 +67,26 @@ export default {
         <h1 class="text-center mb-4">Zimmer buchen</h1>
 
         <!-- Buchungsformular -->
-        <BookingForm @submitBooking="handleBooking" />
+        <BookingForm
+            :roomId= roomId
+            :fromDate="fromDate"
+            :toDate="toDate"
+            @reviewData="handleReview" />
+        <!-- Review Modal -->
+        <BookingReview
+            :visible="isReviewModalVisible"
+            :formData="formData"
+            :roomDetails="store.bookingDetails"
+            @confirm="finalizeBooking"
+            @cancel="isReviewModalVisible = false"
+        />
 
-        <!-- Bestätigung -->
-        <b-alert
-            v-if="store.bookingId"
-            variant="success"
-            class="mt-4"
-            dismissible
-        >
-          Buchung erfolgreich! Ihre Buchungs-ID lautet: <strong>{{ store.bookingId }}</strong>.
-        </b-alert>
+        <!-- Erfolgsmodal -->
+        <BookingConfirmation
+            :visible="isSuccessModalVisible"
+            :bookingId="store.bookingId"
+            @update:visible="isSuccessModalVisible = $event"
+        />
 
         <!-- Fehleranzeige -->
         <b-alert

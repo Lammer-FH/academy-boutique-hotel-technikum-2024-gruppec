@@ -1,43 +1,66 @@
 <script>
 import { reactive, ref } from 'vue';
 export default {
-  name: "BookingForm",
-  emits: ['submitBooking'],
-  setup(props, { emit }) {
-    const form = reactive({
-      firstname: '',
-      lastname: '',
-      birthdate: '',
-      email: '',
-      confirmEmail: '',
-      breakfast: false,
-    });
-
-    const isLoading = ref(false);
-
-    const submitForm = () => {
-      isLoading.value = true;
-      // Sende die Daten an die übergeordnete Komponente
-      emit('submitBooking', { ...form });
-      setTimeout(() => {
-        isLoading.value = false;
-      }, 1000);
-    };
-
-    return { form, submitForm, isLoading };
+  name: 'BookingForm',
+  props: {
+    roomId: {
+      type: Number,
+      required: true
+    },
+    fromDate: {
+      type: Date,
+      required: true
+    },
+    toDate: {
+      type: Date,
+      required: true
+    }
   },
+  data() {
+    return {
+      formData: {
+        roomId: this.roomId,
+        fromDate: this.fromDate,
+        toDate: this.toDate,
+        firstname: '',
+        lastname: '',
+        email: '',
+        confirmEmail: '',
+        breakfast: false
+      }
+    };
+  },
+  methods: {
+    handleReview() {
+      // Formulardaten an den Elternteil übergeben
+      this.$emit('reviewData', this.formData);
+    }
+  }
 };
 </script>
 
 <template>
   <b-container>
-    <b-form @submit.prevent="submitForm">
+    <b-form @submit.prevent="handleReview">
+      <b-row>
+        <b-col cols="12">
+          <b-form-group label="Zimmer-ID:" label-for="room-id">
+            <b-form-input v-model="formData.roomId" disabled></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="12">
+          <b-form-group label="Zeitraum:" label-for="date-range">
+            <b-form-input v-model="formData.fromDate" type="date" disabled></b-form-input>
+            <b-form-input v-model="formData.toDate" type="date" disabled></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col cols="12" md="6">
           <b-form-group label="Vorname:" label-for="firstname-input" label-cols-lg="4">
             <b-form-input
                 id="firstname-input"
-                v-model="form.firstname"
+                v-model="formData.firstname"
                 required
                 placeholder="Vorname eingeben"
             ></b-form-input>
@@ -48,7 +71,7 @@ export default {
           <b-form-group label="Nachname:" label-for="lastname-input" label-cols-lg="4">
             <b-form-input
                 id="lastname-input"
-                v-model="form.lastname"
+                v-model="formData.lastname"
                 required
                 placeholder="Nachname eingeben"
             ></b-form-input>
@@ -61,7 +84,7 @@ export default {
           <b-form-group label="Geburtsdatum:" label-for="birthdate-input" label-cols-lg="4">
             <b-form-input
                 id="birthdate-input"
-                v-model="form.birthdate"
+                v-model="formData.birthdate"
                 type="date"
                 required
             ></b-form-input>
@@ -72,7 +95,7 @@ export default {
           <b-form-group label="E-Mail:" label-for="email-input" label-cols-lg="4">
             <b-form-input
                 id="email-input"
-                v-model="form.email"
+                v-model="formData.email"
                 type="email"
                 required
                 placeholder="E-Mail eingeben"
@@ -86,7 +109,7 @@ export default {
           <b-form-group label="E-Mail bestätigen:" label-for="confirm-email-input" label-cols-lg="4">
             <b-form-input
                 id="confirm-email-input"
-                v-model="form.confirmEmail"
+                v-model="formData.confirmEmail"
                 type="email"
                 required
                 placeholder="E-Mail erneut eingeben"
@@ -98,7 +121,7 @@ export default {
           <b-form-group label="Frühstück gewünscht:" label-for="breakfast-checkbox">
             <b-form-checkbox
                 id="breakfast-checkbox"
-                v-model="form.breakfast"
+                v-model="formData.breakfast"
             >
               Frühstück hinzufügen
             </b-form-checkbox>
@@ -109,7 +132,7 @@ export default {
       <b-row>
         <b-col class="text-center">
           <b-button type="submit" variant="primary" :disabled="isLoading">
-            {{ isLoading ? 'Absenden...' : 'Buchung absenden' }}
+            {{ isLoading ? 'Laden...' : 'Buchung prüfen' }}
           </b-button>
         </b-col>
       </b-row>
