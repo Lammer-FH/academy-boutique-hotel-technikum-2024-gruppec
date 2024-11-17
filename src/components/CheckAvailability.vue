@@ -1,53 +1,78 @@
-<script>
-export default {
-  name: "checkAvailability"
-}
-</script>
-
 <template>
-  <div>
-    <div v-for="room in rooms" :key="room.id" class="room-card">
-      <img :src="room.imgSrc" :alt="room.localTitle" class="room-image" />
-      <h3>{{ room.localTitle }}</h3>
-      <p>{{ room.description }}</p>
-      <b-button
-          :aria-expanded="activeRoomId === room.id ? 'true' : 'false'"
-          @click="toggleCollapse(room.id)"
-          variant="primary"
-      >
-        Verfügbarkeit prüfen
-      </b-button>
-      <b-collapse v-model="activeRoomId === room.id" class="mt-2">
-        <div class="date-picker">
-          <b-form-group label="Anreise">
-            <b-form-datepicker v-model="fromDate" :min="today"></b-form-datepicker>
-          </b-form-group>
-          <b-form-group label="Abreise">
-            <b-form-datepicker v-model="toDate" :min="fromDate"></b-form-datepicker>
-          </b-form-group>
-          <b-button
-              @click="checkAvailability(room)"
-              variant="success"
-              :disabled="!canCheckAvailability"
-          >
-            Datum prüfen
-          </b-button>
-        </div>
-      </b-collapse>
+  <div class="check-availability-container">
+    <!-- Eingabefeld für Anreisedatum -->
+    <div class="date-input">
+      <label for="from-date">Anreisedatum:</label>
+      <input type="date" v-model="fromDate" id="from-date" />
     </div>
 
-    <!-- Feedback Modal -->
-    <b-modal
-        id="feedback-modal"
-        ref="feedbackModal"
-        :title="modalTitle"
-        @hide="resetModal"
-    >
-      <p>{{ modalMessage }}</p>
-    </b-modal>
+    <!-- Eingabefeld für Abreisedatum -->
+    <div class="date-input">
+      <label for="to-date">Abreisedatum:</label>
+      <input type="date" v-model="toDate" id="to-date" />
+    </div>
+
+    <!-- Button zur Verfügbarkeitsprüfung -->
+    <button @click="checkAvailability" :disabled="!fromDate || !toDate">Datum prüfen</button>
   </div>
 </template>
 
-<style scoped>
+<script>
+export default {
+  name: 'CheckAvailability',
+  data() {
+    return {
+      fromDate: '',  // Anreisedatum
+      toDate: ''     // Abreisedatum
+    };
+  },
+  methods: {
+    checkAvailability() {
+      if (this.fromDate && this.toDate) {
+        console.log(`Verfügbarkeit prüfen von ${this.fromDate} bis ${this.toDate}`);
+        alert(`Verfügbarkeit von ${this.fromDate} bis ${this.toDate} wird geprüft.`);
+      } else {
+        alert('Bitte wählen Sie ein Anreise- und Abreisedatum aus!');
+      }
+    }
+  }
+};
+</script>
 
+<style scoped>
+.check-availability-container {
+  display: flex;
+  align-items: flex-end;  /* Ausrichtung der Elemente am unteren Rand */
+  gap: 20px;              /* Abstand zwischen den Eingabefeldern und dem Button */
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 9px;
+
+}
+
+.date-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Vertikale Ausrichtung des Labels und Eingabefelds am unteren Rand */
+}
+
+input[type="date"] {
+  height: 40px;  /* Höhe der Eingabefelder */
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;  /* Gleiche Höhe wie die Eingabefelder */
+  display: inline-block;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 </style>

@@ -9,36 +9,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Zimmer_1_AlanTuring from "@/assets/RoomImages/Zimmer_1_AlanTuring.png";
 import Zimmer_2_GraceHopper from "@/assets/RoomImages/Zimmer_2_GraceHopper.webp";
-import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_3_AdaLovelace.png";
+import Zimmer_3_AdaLovelace from "@/assets/RoomImages/Zimmer_3_AdaLovelace.png"; // Richtiges Bild hinterlegen (Ric)
 import Zimmer_4_JohnVonNeumann from "@/assets/RoomImages/Zimmer_4_JohnVonNeumann.jpg";
 import Zimmer_5_MargaretHamilton from "@/assets/RoomImages/Zimmer_5_MargaretHamilton.jpg";
-import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_6_SteveWozniak.jpg";
+import Zimmer_6_SteveWozniak from "@/assets/RoomImages/Zimmer_6_SteveWozniak.jpg"; // Richtiges Bild hinterlegen (Marina)
 import Zimmer_7_TimBernersLee from "@/assets/RoomImages/Zimmer_7_TimBernersLee.png";
 import Zimmer_8_LinusTorvalds from "@/assets/RoomImages/Zimmer_8_LinusTorvalds.png";
 import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
 import Zimmer_10_KatherineJohnson from "@/assets/RoomImages/Zimmer_10_KatherineJohnson.png";
-
-/*
-{
-  src: Zimmer_10_KatherineJohnson,
-  alt: "Katherine Johnson",
-  roomNumber: 10,
-  beds: 1,
-  pricePerNight: 120,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
-];
-*/
 
 
 export default defineComponent({
@@ -78,7 +56,7 @@ export default defineComponent({
           // Hier werden lokale Infos zugeordnet
           title: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.localTitle || '',
           imgSrc: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.imgSrc || '',
-          description: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.description || 'Keine Beschreibung verfügbar',
+          description: this.localRoomInfo.find(localRoom => localRoom.id === room.id)?.description || 'Kein Beschreibung verfügbar',
           extras: room.extras?.reduce((acc, extra) => {
             const [key, value] = Object.entries(extra)[0];
             acc[key] = value;
@@ -171,12 +149,11 @@ export default defineComponent({
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2-Spalten-Layout*/
-  gap: 16px; /* Abstand zwischen den Karten*/
+  grid-template-columns: repeat(2, 1fr); /* 2-Spalten-Layout */
+  gap: 16px; /* Abstand zwischen den Karten */
   max-width: 1200px;
   margin: 0 auto;
 }
-
 
 @media (max-width: 768px) {
   .cards-container {
@@ -203,4 +180,3 @@ button:disabled {
   cursor: not-allowed;
 }
 </style>
-

@@ -1,9 +1,12 @@
 <script>
-import ToggleCollapse from "@/components/ToggleCollapse.vue";
+import CheckAvailability from "@/components/CheckAvailability.vue";
+import AccordionComponent from "@/components/Accordion.vue";
+import Accordion from "@/components/Accordion.vue";
+
 
 export default {
   name: "CardsRooms",
-  components: {ToggleCollapse},
+  components: {AccordionComponent, CheckAvailability, Accordion},
   props: {
     localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
@@ -45,9 +48,9 @@ export default {
     <b-card-text>
       <p>Zimmernummer: {{ roomsNumber }}</p>
       <p>Betten: {{ beds }}</p>
-      <p>Preis: {{ pricePerNight }} €</p>
+      <p>Preis pro Nacht: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
-      <div class="extras-icons">
+      <div class="extras-icons" style="margin-bottom: 35px;">
         <i v-if="extras.bathroom" class="bi bi-badge-wc" title="Badezimmer"></i>
         <i v-if="extras.minibar" class="bi bi-cup-straw" title="Minibar"></i>
         <i v-if="extras.television" class="bi bi-tv" title="Fernseher"></i>
@@ -57,9 +60,22 @@ export default {
         <i v-if="extras.breakfast" class="bi bi-egg-fried" title="Frühstück"></i>
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
-      <p>{{ description }}</p>
-      <ToggleCollapse :collapseId="'collapse-' + roomsNumber" />
-      <!--<b-button href="#" variant="primary">Check Availability</b-button>-->
+
+      <AccordionComponent :description="description" />
+
+      <!-- Accordion für Beschreibung und Verfügbarkeit
+      <b-accordion style="margin-top: 40px;">  Abstand zwischen Icons und Accordion -->
+        <!-- Beschreibung Accordion
+        <b-accordion-item title="Zimmerbeschreibung">
+          <p>{{ description }}</p>
+        </b-accordion-item>
+
+         Verfügbarkeit Accordion
+        <b-accordion-item title="Buchung">
+          <CheckAvailability/>
+        </b-accordion-item>
+      </b-accordion>-->
+
     </b-card-text>
   </b-card>
 
@@ -88,5 +104,6 @@ export default {
   object-fit: cover; /* Skaliert das Bild */
   object-position: center; /* Bild bleibt mittig */
 }
+
 
 </style>
