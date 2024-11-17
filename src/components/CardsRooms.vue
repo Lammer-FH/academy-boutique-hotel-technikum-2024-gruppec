@@ -63,19 +63,6 @@ export default {
 
       <AccordionComponent :description="description" />
 
-      <!-- Accordion für Beschreibung und Verfügbarkeit
-      <b-accordion style="margin-top: 40px;">  Abstand zwischen Icons und Accordion -->
-        <!-- Beschreibung Accordion
-        <b-accordion-item title="Zimmerbeschreibung">
-          <p>{{ description }}</p>
-        </b-accordion-item>
-
-         Verfügbarkeit Accordion
-        <b-accordion-item title="Buchung">
-          <CheckAvailability/>
-        </b-accordion-item>
-      </b-accordion>-->
-
     </b-card-text>
   </b-card>
 
