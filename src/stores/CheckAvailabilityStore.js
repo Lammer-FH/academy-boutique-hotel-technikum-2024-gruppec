@@ -23,10 +23,15 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
 
             // Validierung
             if (!roomId || !fromDate || !toDate) {
-                this.error = 'Bitte Zimmer-ID, Start- und Enddatum angeben.';
-                this.isAvailable = null;
+                this.error = `Fehler: Es fehlen folgende Daten:
+    ${!roomId ? 'Zimmer-ID ' : ''}
+    ${!fromDate ? 'Startdatum ' : ''}
+    ${!toDate ? 'Enddatum' : ''}`;
                 return;
             }
+
+            console.log("Verfügbarkeitsprüfung für:", roomId, fromDate, toDate); //aus Testzwecken
+
 
             const apiUrl = `https://boutique-hotel.helmuthlammer.at/api/v1/room/${roomId}/from/${fromDate}/to/${toDate}`;
 
@@ -36,7 +41,7 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
             try {
                 const response = await axios.get(apiUrl);
 
-                if (response.data.state === 200) {
+                if (response.data.state === 201) { //laut Ricardas BookRoomStore ist State 201 korrekt
                     this.isAvailable = true;
                 } else {
                     this.isAvailable = false;

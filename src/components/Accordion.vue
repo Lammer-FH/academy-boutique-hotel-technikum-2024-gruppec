@@ -3,14 +3,15 @@ import { BAccordion, BAccordionItem } from 'bootstrap-vue-3';
 import CheckAvailability from "@/components/CheckAvailability.vue";
 
 export default {
-  name: 'AccordionComponent',
+  name: 'Accordion',
   components: {
     CheckAvailability,
     BAccordion,
     BAccordionItem
   },
   props: {
-    description: { type: String, required: true }
+    description: { type: String, required: true },
+    roomId: {type: Number, required: true}
   }
 };
 </script>
@@ -25,7 +26,7 @@ export default {
     <!-- Verfügbarkeit Accordion -->
     <b-accordion-item title="Buchung">
       <p>Überprüfen Sie hier die Verfügbarkeit dieses Zimmers</p>
-      <CheckAvailability/>
+      <CheckAvailability :room-id="roomId" />
     </b-accordion-item>
   </b-accordion>
 </template>

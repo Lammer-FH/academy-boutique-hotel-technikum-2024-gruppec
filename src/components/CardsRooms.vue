@@ -6,7 +6,7 @@ import Accordion from "@/components/Accordion.vue";
 
 export default {
   name: "CardsRooms",
-  components: {AccordionComponent, CheckAvailability, Accordion},
+  components: {AccordionComponent, CheckAvailability},
   props: {
     localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
@@ -61,7 +61,7 @@ export default {
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
 
-      <AccordionComponent :description="description" />
+      <AccordionComponent :description="description" :room-id="roomsNumber" />
 
     </b-card-text>
   </b-card>
