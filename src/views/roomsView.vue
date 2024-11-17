@@ -114,7 +114,7 @@ export default defineComponent({
         :img-alt="room.roomsName"
         :description="room.description"
         button-text="Verfügbarkeit prüfen"
-        :roomsNumber="room.roomsNumber"
+        :roomsNumber="Number(room.roomsNumber)"
         :beds="room.beds"
         :pricePerNight="room.pricePerNight"
         :extras="room.extras"

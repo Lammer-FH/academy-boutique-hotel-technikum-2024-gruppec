@@ -61,7 +61,7 @@ export default {
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
 
-      <AccordionComponent :description="description" :room-id="roomsNumber" />
+      <AccordionComponent :description="description" :roomId="Number(roomsNumber)" />
 
     </b-card-text>
   </b-card>

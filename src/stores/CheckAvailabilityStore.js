@@ -1,20 +1,28 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
+
 export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
     state: () => ({
         availabilityDetails: {
-            roomId: null,
-            fromDate: null,
-            toDate: null,
+            roomId: 1,
+            fromDate: "null",
+            toDate: "null",
         },
-        isAvailable: null, // Speichert, ob das Zimmer verfügbar ist (true/false)
-        error: null,       // Speichert Fehlernachrichten
-        isLoading: false,  // Zeigt an, ob ein API-Aufruf läuft
+        isAvailable: false, // Immer als boolean (false)
+        error: null, // Fehlernachrichten
+        isLoading: false, // Zeigt an, ob ein API-Aufruf läuft
     }),
 
     actions: {
         setAvailabilityDetails(details) {
+            // Sicherstellen, dass roomId eine Zahl ist, falls sie als String übergeben wird
+            if (typeof details.roomId === 'string') {
+                details.roomId = parseInt(details.roomId, 10);
+            }
+
+            // Details richtig setzen, auch wenn bereits etwas vorhanden ist
             this.availabilityDetails = { ...this.availabilityDetails, ...details };
         },
 
@@ -24,16 +32,17 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
             // Validierung
             if (!roomId || !fromDate || !toDate) {
                 this.error = `Fehler: Es fehlen folgende Daten:
-    ${!roomId ? 'Zimmer-ID ' : ''}
-    ${!fromDate ? 'Startdatum ' : ''}
-    ${!toDate ? 'Enddatum' : ''}`;
+        ${!roomId ? 'Zimmer-ID ' : ''}
+        ${!fromDate ? 'Startdatum ' : ''}
+        ${!toDate ? 'Enddatum' : ''}`;
                 return;
             }
 
-            console.log("Verfügbarkeitsprüfung für:", roomId, fromDate, toDate); //aus Testzwecken
+            console.log("Verfügbarkeitsprüfung für:", roomId, fromDate, toDate);
 
-
-            const apiUrl = `https://boutique-hotel.helmuthlammer.at/api/v1/room/${roomId}/from/${fromDate}/to/${toDate}`;
+            // URL korrekt zusammensetzen
+            const apiUrl = `${baseUrl}/room/${roomId}/from/${fromDate}/to/${toDate}`;
+            console.log("API URL:", apiUrl);
 
             this.isLoading = true;
             this.error = null;
@@ -41,7 +50,8 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
             try {
                 const response = await axios.get(apiUrl);
 
-                if (response.data.state === 201) { //laut Ricardas BookRoomStore ist State 201 korrekt
+                // Überprüfen der Antwort auf "available"
+                if (response.data.available === true) {
                     this.isAvailable = true;
                 } else {
                     this.isAvailable = false;
@@ -50,10 +60,11 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
             } catch (error) {
                 console.error('API Error:', error);
                 this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten.';
-                this.isAvailable = null;
+                this.isAvailable = false;
             } finally {
                 this.isLoading = false;
             }
-        },
+        }
+
     },
 });

@@ -10,8 +10,8 @@ export default {
     BAccordionItem
   },
   props: {
-    description: { type: String, required: true },
-    roomId: {type: Number, required: true}
+    description: {type: String, required: true},
+    roomId: {type: Number, required: true}  // Prop 'roomId' angepasst
   }
 };
 </script>
@@ -26,12 +26,12 @@ export default {
     <!-- Verfügbarkeit Accordion -->
     <b-accordion-item title="Buchung">
       <p>Überprüfen Sie hier die Verfügbarkeit dieses Zimmers</p>
-      <CheckAvailability :room-id="roomId" />
+      <!-- Umwandlung von roomId in eine Zahl, bevor es an CheckAvailability übergeben wird -->
+      <CheckAvailability :roomId="Number(roomId)" />
     </b-accordion-item>
   </b-accordion>
 </template>
 
+
 <style scoped>
-
-
 </style>
