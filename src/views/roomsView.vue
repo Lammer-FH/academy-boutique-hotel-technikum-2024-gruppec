@@ -18,28 +18,6 @@ import Zimmer_8_LinusTorvalds from "@/assets/RoomImages/Zimmer_8_LinusTorvalds.p
 import Zimmer_9_IsaacAsimov from "@/assets/RoomImages/Zimmer_9_IsaacAsimov.png";
 import Zimmer_10_KatherineJohnson from "@/assets/RoomImages/Zimmer_10_KatherineJohnson.png";
 
-/*
-{
-  src: Zimmer_10_KatherineJohnson,
-  alt: "Katherine Johnson",
-  roomNumber: 10,
-  beds: 1,
-  pricePerNight: 120,
-  extras: {
-    bathroom: 1,
-    minibar: 0,
-    television: 1,
-    livingroom: 1,
-    aircondition: 0,
-    wifi: 1,
-    breakfast: 0,
-    handicappedAccessible: 1,
-  },
-},
-
-];
-*/
-
 
 export default defineComponent({
   name: 'Rooms',
@@ -136,7 +114,7 @@ export default defineComponent({
         :img-alt="room.roomsName"
         :description="room.description"
         button-text="Verfügbarkeit prüfen"
-        :roomsNumber="room.roomsNumber"
+        :roomsNumber="Number(room.roomsNumber)"
         :beds="room.beds"
         :pricePerNight="room.pricePerNight"
         :extras="room.extras"
@@ -202,4 +180,3 @@ button:disabled {
   cursor: not-allowed;
 }
 </style>
-

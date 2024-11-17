@@ -1,6 +1,12 @@
 <script>
+import CheckAvailability from "@/components/CheckAvailability.vue";
+import AccordionComponent from "@/components/Accordion.vue";
+import Accordion from "@/components/Accordion.vue";
+
+
 export default {
   name: "CardsRooms",
+  components: {AccordionComponent, CheckAvailability},
   props: {
     localTitle: { type: String, required: true },
     imgSrc: { type: String, required: true },
@@ -42,9 +48,9 @@ export default {
     <b-card-text>
       <p>Zimmernummer: {{ roomsNumber }}</p>
       <p>Betten: {{ beds }}</p>
-      <p>Preis: {{ pricePerNight }} €</p>
+      <p>Preis pro Nacht: {{ pricePerNight }} €</p>
       <h5>Extras:</h5>
-      <div class="extras-icons">
+      <div class="extras-icons" style="margin-bottom: 35px;">
         <i v-if="extras.bathroom" class="bi bi-badge-wc" title="Badezimmer"></i>
         <i v-if="extras.minibar" class="bi bi-cup-straw" title="Minibar"></i>
         <i v-if="extras.television" class="bi bi-tv" title="Fernseher"></i>
@@ -54,8 +60,9 @@ export default {
         <i v-if="extras.breakfast" class="bi bi-egg-fried" title="Frühstück"></i>
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
-      <p>{{ description }}</p>
-      <b-button href="#" variant="primary">Check Availability</b-button>
+
+      <AccordionComponent :description="description" :roomId="Number(roomsNumber)" />
+
     </b-card-text>
   </b-card>
 
@@ -84,5 +91,6 @@ export default {
   object-fit: cover; /* Skaliert das Bild */
   object-position: center; /* Bild bleibt mittig */
 }
+
 
 </style>

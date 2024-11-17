@@ -28,7 +28,6 @@ export default {
           <b-nav-item to="/roomsView">Rooms</b-nav-item>
           <b-nav-item to="/impressum">Impressum</b-nav-item>
           <b-nav-item to="/ueber-uns">Über uns</b-nav-item>
-          <b-nav-item to="/BookRoomView">Booking</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
 

@@ -3,7 +3,7 @@ import Impressum from '@/views/Impressum.vue'
 import UeberUnsView from "@/views/UeberUnsView.vue"
 import landingView from "@/views/landingView.vue"
 import roomsView from "@/views/roomsView.vue";
-import BookRoomView from "@/views/BookRoomView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,12 +27,7 @@ const router = createRouter({
       path: '/impressum',
       name: 'impressum',
       component: Impressum
-    },
-    {
-      path: '/BookRoomView',
-      name: 'BookRoomView',
-      component: BookRoomView
-    },
+    }
   ]
 })
 
