@@ -1,6 +1,9 @@
 <script>
+import {isVisible} from "bootstrap/js/src/util";
+
 export default {
   name: "BookingReview",
+  methods: {isVisible},
   props: {
     visible: {
       type: Boolean,
@@ -20,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <b-modal :visible="visible" @hide="$emit('cancel')" title="Buchung prüfen" size="lg">
+  <b-modal v-model="isVisible" @hide="$emit('cancel')" title="Buchung prüfen" size="lg">
     <p><strong>Zimmer:</strong> {{ roomDetails.roomId }}</p>
     <p><strong>Zeitraum:</strong> {{ roomDetails.fromDate }} bis {{ roomDetails.toDate }}</p>
     <p><strong>Vorname:</strong> {{ formData.firstname }}</p>
