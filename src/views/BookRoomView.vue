@@ -31,8 +31,6 @@ export default {
         <!-- Buchungsformular -->
         <BookingForm
             @reviewData="handleReview"/>
-        <!-- Review Modal -->
-
       </b-col>
     </b-row>
   </b-container>

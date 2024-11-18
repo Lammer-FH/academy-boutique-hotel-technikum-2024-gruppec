@@ -53,9 +53,6 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                 breakfast
             };
 
-            //this.isLoading = true;
-            //this.error = null;
-
             try {
                 const response = await axios.post(apiUrl, data, {
                     headers: {

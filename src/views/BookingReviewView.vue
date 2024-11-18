@@ -55,7 +55,7 @@ export default {
       <div>
         <router-link to="/BookRoomView" tag="button">Zurück</router-link>
         <!--<b-button href=“/BookRoomView“ variant="danger">Zurück</b-button>-->
-        <b-button variant="success" @click="sendBooking">Buchung abschließen</b-button>  <!--TODO: Verlinkung hinzufügen-->
+        <b-button variant="success" @click="sendBooking">Buchung abschließen</b-button>
       </div>
       <div>
         <b-alert show variant="warning">{{useBookRoomStore().error}}</b-alert>
