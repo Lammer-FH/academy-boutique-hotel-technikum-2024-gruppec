@@ -118,6 +118,7 @@ export default defineComponent({
         :beds="room.beds"
         :pricePerNight="room.pricePerNight"
         :extras="room.extras"
+        :id="Number(room.id)"
     />
   </div>
 

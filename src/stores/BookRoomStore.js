@@ -23,37 +23,38 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
 
     actions: {
         setBookingDetails(details) {
-            this.bookingDetails = { ...this.bookingDetails, ...details };
+            this.bookingDetails = { ...this.bookingDetails, ...details }
+            //console.log(this.bookingDetails)
+        },
+        setBookingId(id){
+          this.bookingId = id
         },
         async bookRoom() {
-            const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails;
+            const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails
 
-            //temporäre testdaten:
-            const testRoomId = roomId || 10;
-            const testFromDate = fromDate || new Date('2027-07-03');
-            const testToDate = toDate || new Date('2027-07-04');
+            console.log("book room")
             this.isLoading = true;
 
-
-
-            if (!testRoomId || !testFromDate || !testToDate || !firstname || !lastname || !birthdate || !email) {
+            if (!roomId || !fromDate || !toDate || !firstname || !lastname || !birthdate || !email) {
                 this.error = 'Bitte alle Felder ausfüllen.';
                 return;
             }
 
             // URL mit Platzhaltern ersetzen bei Testdaten
-            const apiUrl = `${baseUrl}/room/${testRoomId}/from/${testFromDate}/to/${testToDate}`;
+            const apiUrl = `${baseUrl}/room/${roomId}/from/${fromDate}/to/${toDate}`;
+            console.log("apiURL: ")
+            console.log(apiUrl)
 
             const data = {
                 firstname,
                 lastname,
                 birthdate,
                 email,
-                breakfast, // Frühstück hinzufügen (true/false)
+                breakfast
             };
 
-            this.isLoading = true;
-            this.error = null;
+            //this.isLoading = true;
+            //this.error = null;
 
             try {
                 const response = await axios.post(apiUrl, data, {
@@ -62,16 +63,19 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                     }
                 });
                 if (response.status === 201) {
-                    this.bookingId = response.data.id;
-                    this.error = null;
+                    this.setBookingId(response.data.id)
+                    //this.bookingId = response.data.id
+                    this.error = null
+                    console.log("Booking Id:")
+                    console.log(this.bookingId)
                 } else {
-                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Unbekannter Fehler'}`;
+                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Beim Abrufen der Informationen ist ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'}`
                 }
             } catch (error) {
-                console.log('API Error:', error);
-                this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten.';
+                console.log('API Error:', error)
+                this.error = error.response?.data?.message || 'Beim Abrufen der Informationen ist ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'
             } finally {
-                this.isLoading = false;
+                this.isLoading = false
             }
         },
     },
