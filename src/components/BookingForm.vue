@@ -1,68 +1,49 @@
 <script>
-import {computed, reactive, ref} from 'vue'
-import { storeToRefs } from "pinia"
+
 import { useCheckAvailabilityStore } from "@/stores/CheckAvailabilityStore"
 import { useBookRoomStore } from "@/stores/BookRoomStore"
+import router from "@/router";
 
 export default {
   name: 'BookingForm',
-  //computed: {
-  //  checkAvailability() {
-  //    return checkAvailability
-  //  }
-  //},
-  setup(){
-    console.log("setup");
-    const checkAvailabilityStore = useCheckAvailabilityStore()
-    console.log(useCheckAvailabilityStore())
-    //console.log(checkAvailabilityStore)
-    //const {availDetails} = storeToRefs(checkAvailabilityStore.availabilityDetails)
-    //const {storeAvail} = storeToRefs(checkAvailabilityStore)
-    //console.log(availDetails)
-    //console.log(storeAvail)
-    //const { toDate } = ref(checkAvailabilityStore.availabilityDetails.toDate)
-    //const { fromDate } = storeToRefs(checkAvailabilityStore.availabilityDetails.fromDate)
-    //const roomId = computed(() => checkAvailabilityStore.availabilityDetails.roomId)
-    //console.log(fromDate)
-    //console.log(toDate)
-    //console.log(roomId)
-  },
-  data() {
-    console.log("data")
+  data: () => {
     return {
-      roomId: 101, // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
-      fromDate: '2027-07-02', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
-      toDate: '2027-07-05', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
+      room_ID: useCheckAvailabilityStore().availabilityDetails.roomId,
+      from_Date: useCheckAvailabilityStore().availabilityDetails.fromDate,
+      to_Date: useCheckAvailabilityStore().availabilityDetails.toDate,
+      //roomId: 101, // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
+      //fromDate: '2027-07-02', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
+      //toDate: '2027-07-05', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
+      bookRoomStore: useBookRoomStore(),
       formData: {
         firstname: '',
         lastname: '',
+        birthdate: '',
         email: '',
         confirmEmail: '',
         breakfast: true,
-      },
+      }
     };
   },
   methods: {
+    useCheckAvailabilityStore,
     handleReview() {
-      // Validierung (optional)
       if (this.formData.email !== this.formData.confirmEmail) {
         alert('Emails stimmen nicht überein!');
         return;
       }
 
-      // Daten an den Elternteil oder einen anderen Store übergeben
-      const BookRoomStore = useBookRoomStore();
-      BookRoomStore.setBookingDetails({
-        roomId: this.roomId,
-        fromDate: this.fromDate,
-        toDate: this.toDate,
+      this.bookRoomStore.setBookingDetails({
+        roomId: this.room_ID,
+        fromDate: this.from_Date,
+        toDate: this.to_Date,
         ...this.formData,
       });
-
+      router.push('/BookingReviewView')
       // const isLoading = computed(() => BookRoomStore.isLoading);
 
       // Optional: Emit-Event für den Elternteil
-      this.$emit('reviewData', this.formData);
+      //this.$emit('reviewData', this.formData);
 
       //return {
       //  isLoading
@@ -79,13 +60,13 @@ export default {
       <b-row>
         <b-col cols="12">
           <b-form-group label="Zimmer-ID:" label-for="room-id">
-            <b-form-input v-model="this.roomId" disabled></b-form-input>
+            <b-form-input v-model="useCheckAvailabilityStore().availabilityDetails.roomId" enabled>{{this.room_ID}}</b-form-input>
           </b-form-group>
         </b-col>
         <b-col cols="12">
           <b-form-group label="Zeitraum:" label-for="date-range">
-            <b-form-input v-model="this.fromDate" type="date" disabled></b-form-input>
-            <b-form-input v-model="this.toDate" type="date" disabled></b-form-input>
+            <b-form-input v-model="this.from_Date" type="date" enabled></b-form-input>
+            <b-form-input v-model="this.to_Date" type="date" enabled></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
@@ -165,9 +146,13 @@ export default {
 
       <b-row>
         <b-col class="text-center">
+          <b-button type="submit" variant="primary">Buchung überprüfen</b-button>
+          <!--
+          <b-button href="/BookingReviewView">Buchung prüfen</b-button>
           <b-button type="submit" variant="primary" :disabled="isLoading">
-            {{ isLoading ? 'Laden...' : 'Buchung prüfen' }} <!-- TODO: fix reference -->
+            {{ isLoading ? 'Laden...' : 'Buchung prüfen' }} TODO: fix reference
           </b-button>
+          -->
         </b-col>
       </b-row>
     </b-form>
@@ -176,9 +161,5 @@ export default {
 </template>
 
 <style scoped>
-
-.b-container {
-  margin-top: 20px;
-}
 
 </style>

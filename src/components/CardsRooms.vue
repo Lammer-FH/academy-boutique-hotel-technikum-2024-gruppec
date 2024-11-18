@@ -1,7 +1,6 @@
 <script>
 import CheckAvailability from "@/components/CheckAvailability.vue";
 import AccordionComponent from "@/components/Accordion.vue";
-import Accordion from "@/components/Accordion.vue";
 
 
 export default {
@@ -15,7 +14,8 @@ export default {
     roomsNumber: { type: Number, required: true },
     beds: { type: Number, required: true },
     pricePerNight: { type: Number, required: true },
-    extras: { type: Object, required: true }
+    extras: { type: Object, required: true },
+    id: {type: Number, required: true }
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
         <i v-if="extras.handicappedAccessible" class="bi bi-person-wheelchair" title="Barrierefrei"></i>
       </div>
 
-      <AccordionComponent :description="description" :roomId="Number(roomsNumber)" />
+      <AccordionComponent :description="description" :roomId="Number(id)" />
 
     </b-card-text>
   </b-card>

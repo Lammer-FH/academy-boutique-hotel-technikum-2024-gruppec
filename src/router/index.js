@@ -2,8 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Impressum from '@/views/Impressum.vue'
 import UeberUnsView from "@/views/UeberUnsView.vue"
 import landingView from "@/views/landingView.vue"
-import roomsView from "@/views/roomsView.vue";
-import BookRoomView from "@/views/BookRoomView.vue";
+import roomsView from "@/views/roomsView.vue"
+import BookRoomView from "@/views/BookRoomView.vue"
+import BookingReviewView from "@/views/BookingReviewView.vue"
+import ConfirmationView from "@/views/ConfirmationView.vue";
 
 
 const router = createRouter({
@@ -33,6 +35,16 @@ const router = createRouter({
       path: '/BookRoomView',
       name: 'BookRoomView',
       component: BookRoomView
+    },
+    {
+      path: '/BookingReviewView',
+      name: 'BookingReviewView',
+      component: BookingReviewView
+    },
+    {
+      path: '/ConfirmationView',
+      name: 'ConfirmationView',
+      component: ConfirmationView
     }
   ]
 })
