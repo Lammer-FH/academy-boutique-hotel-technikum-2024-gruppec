@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
+
 export const useBookRoomStore = defineStore('BookRoomStore', {
     state: () => ({
         bookingDetails: {
@@ -27,7 +29,7 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails;
 
             //temporäre testdaten:
-            const testRoomId = roomId || '10';
+            const testRoomId = roomId || 10;
             const testFromDate = fromDate || new Date('2027-07-03');
             const testToDate = toDate || new Date('2027-07-04');
             this.isLoading = true;
@@ -40,7 +42,7 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             }
 
             // URL mit Platzhaltern ersetzen bei Testdaten
-            const apiUrl = `https://boutique-hotel.helmuth-lammer.at/api/v1/room/${testRoomId}/from/${testFromDate}/to/${testToDate}`;
+            const apiUrl = `${baseUrl}/room/${testRoomId}/from/${testFromDate}/to/${testToDate}`;
 
             const data = {
                 firstname,
@@ -50,6 +52,7 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                 breakfast, // Frühstück hinzufügen (true/false)
             };
 
+            this.isLoading = true;
             this.error = null;
 
             try {

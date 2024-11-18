@@ -15,8 +15,8 @@ export default {
     const store = useBookRoomStore();
 
     const roomId = store.bookingDetails.roomId || 10; // Standardwert für roomId
-    const fromDate = store.bookingDetails.fromDate || new Date('2027-07-03');
-    const toDate = store.bookingDetails.toDate || new Date('2027-07-04');
+    const fromDate = store.bookingDetails.fromDate || '2027-07-02';
+    const toDate = store.bookingDetails.toDate || '2027-07-04';
 
     const isSuccessModalVisible = ref(false);
     const isReviewModalVisible = ref(false);
@@ -71,7 +71,7 @@ export default {
             :roomId= roomId
             :fromDate="fromDate"
             :toDate="toDate"
-            @reviewData="handleReview" />
+            @reviewData="handleReview"/>
         <!-- Review Modal -->
         <BookingReview
             :visible="isReviewModalVisible"

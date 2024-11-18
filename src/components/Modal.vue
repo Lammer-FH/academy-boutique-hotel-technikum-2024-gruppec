@@ -13,7 +13,7 @@
 
     <!-- Buchungsbutton, nur wenn das Zimmer verfügbar ist -->
     <div v-if="isBookable" class="text-center">
-      <b-button @click="bookNow" variant="success" class="w-100 mt-3">
+      <b-button href="BookRoomView" variant="success" class="w-100 mt-3">
         Jetzt buchen
       </b-button>
     </div>

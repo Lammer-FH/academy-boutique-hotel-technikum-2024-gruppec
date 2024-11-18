@@ -36,6 +36,8 @@ export default {
         return;
       }
 
+      console.log(fromDate, toDate)
+
       // Verfügbarkeitsprüfung
       store.setAvailabilityDetails({
         roomId: props.roomId,  // Die Zimmer-ID kommt direkt als Prop

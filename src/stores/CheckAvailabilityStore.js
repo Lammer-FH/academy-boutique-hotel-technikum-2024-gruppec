@@ -24,6 +24,8 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
 
             // Details richtig setzen, auch wenn bereits etwas vorhanden ist
             this.availabilityDetails = { ...this.availabilityDetails, ...details };
+            console.log("set availability")
+            console.log(this.availabilityDetails)
         },
 
         async checkAvailability() {
