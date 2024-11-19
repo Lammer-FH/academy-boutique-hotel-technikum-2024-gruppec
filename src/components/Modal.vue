@@ -1,3 +1,41 @@
+<script>
+import successImage from '@/assets/success-icon.png';
+import failureImage from '@/assets/failure-icon.png';
+
+export default {
+  name: "Modal",
+  props: {
+    message: { type: String, required: true },
+    isAvailable: { type: Boolean, required: true },
+    modelValue: { type: Boolean, default: false },
+    isBookable: { type: Boolean, default: false }
+  },
+  emits: ['update:modelValue', 'close'],
+  data() {
+    return {
+      isVisible: this.modelValue,
+      successImage,
+      failureImage,
+    };
+  },
+  watch: {
+    modelValue(newVal) {
+      this.isVisible = newVal;
+    }
+  },
+  methods: {
+    closeModal() {
+      this.isVisible = false;
+      this.$emit('update:modelValue', false);
+      this.$emit('close');
+    },
+    bookNow() {
+      alert("Das Zimmer wurde gebucht!");
+    }
+  }
+};
+</script>
+
 <template>
   <b-modal v-model="isVisible" hide-footer>
     <h3 class="text-center mb-3">Verfügbarkeitsprüfung</h3>
@@ -11,7 +49,6 @@
     </div>
     <p class="text-center">{{ message }}</p>
 
-    <!-- Buchungsbutton, nur wenn das Zimmer verfügbar ist -->
     <div v-if="isBookable" class="text-center">
       <b-button href="BookRoomView" variant="success" class="w-100 mt-3">
         Jetzt buchen
@@ -23,44 +60,6 @@
     </b-button>
   </b-modal>
 </template>
-
-<script>
-import successImage from '@/assets/success-icon.png';
-import failureImage from '@/assets/failure-icon.png';
-
-export default {
-  name: "Modal",
-  props: {
-    message: { type: String, required: true },
-    isAvailable: { type: Boolean, required: true },
-    modelValue: { type: Boolean, default: false },  // Für v-model, binde an `modelValue`
-    isBookable: { type: Boolean, default: false }  // Neues Prop für Buchungsbutton
-  },
-  data() {
-    return {
-      isVisible: this.modelValue,  // Lokale Kopie von v-model (`modelValue`)
-      successImage,
-      failureImage,
-    };
-  },
-  watch: {
-    modelValue(newVal) {
-      this.isVisible = newVal;  // Synchronisiere mit der Prop
-    }
-  },
-  methods: {
-    closeModal() {
-      this.isVisible = false;
-      this.$emit('update:modelValue', false); // Synchronisiere `v-model` mit dem Eltern-Component
-      this.$emit('close'); // Event an den Parent senden, wenn das Modal geschlossen wird
-    },
-    bookNow() {
-      // Logik für Buchung
-      alert("Das Zimmer wurde gebucht!");
-    }
-  },
-};
-</script>
 
 <style scoped>
 /* Status-Icon Styling */

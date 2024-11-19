@@ -22,7 +22,7 @@ export default {
         <img src="@/assets/nerd-logo.png" alt="Logo" class="nerd-logo"/>
       </b-navbar-brand>
 
-      <b-collapse id="nav-collapse" is-nav>
+      <b-collapse id="nav-collapse" is-nav="true">
         <b-navbar-nav>
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item to="/roomsView">Rooms</b-nav-item>

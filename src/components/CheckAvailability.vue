@@ -13,61 +13,72 @@ export default {
     const store = useCheckAvailabilityStore();
     const fromDate = ref("");
     const toDate = ref("");
-    const isModalVisible = ref(false); // Zustand des Modals
-    const isAvailableLocal = ref(false); // Lokale Kopie für Verfügbarkeit
-    const modalMessage = ref(""); // Nachricht für Modal
-    const isBookable = ref(false); // Zustand für Buchungsbutton
+    const isModalVisible = ref(false);
+    const isAvailableLocal = ref(false);
+    const modalMessage = ref("");
+    const isBookable = ref(false);
+
+    const minDate = computed(() => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    });
 
     const isLoading = computed(() => store.isLoading);
 
     const checkRoomAvailability = async () => {
-      // Sicherstellen, dass Start- und Enddatum eingegeben sind
       if (!fromDate.value || !toDate.value) {
         alert("Bitte Start- und Enddatum eingeben.");
         return;
       }
 
-      // Stelle sicher, dass das Enddatum nicht vor dem Startdatum liegt
       const startDate = new Date(fromDate.value);
       const endDate = new Date(toDate.value);
 
+      // Überprüfe, ob das Enddatum vor dem Startdatum liegt
       if (startDate > endDate) {
         alert("Das Enddatum darf nicht vor dem Startdatum liegen.");
         return;
       }
 
-      console.log(fromDate, toDate)
+      // Überprüfe, ob das Startdatum gleich dem Enddatum ist
+      if (startDate.getTime() === endDate.getTime()) {
+        alert("Das Start- und Enddatum dürfen nicht gleich sein.");
+        return;
+      }
 
-      // Verfügbarkeitsprüfung
       store.setAvailabilityDetails({
-        roomId: props.roomId,  // Die Zimmer-ID kommt direkt als Prop
+        roomId: props.roomId,
         fromDate: fromDate.value,
         toDate: toDate.value,
       });
 
       try {
-        await store.checkAvailability(); // Verfügbarkeitsprüfung durchführen
+        await store.checkAvailability();
 
-        const isAvailable = store.isAvailable ?? false;  // Sicherstellen, dass immer ein Boolean vorliegt
-        isAvailableLocal.value = isAvailable;
-
-        // Setze die Modal-Nachricht basierend auf der Verfügbarkeit
-        modalMessage.value = isAvailable
+        // Verfügbarkeit prüfen und Modal entsprechend einstellen
+        isAvailableLocal.value = store.isAvailable ?? false;
+        modalMessage.value = isAvailableLocal.value
             ? "Das Zimmer ist verfügbar! Möchten Sie jetzt buchen?"
             : "Das Zimmer ist leider nicht verfügbar.";
 
-        // Setze den Zustand für den Buchungsbutton
-        isBookable.value = isAvailable;
+        isBookable.value = isAvailableLocal.value;
 
-        // Modal anzeigen
+        // Modal immer öffnen, unabhängig vom Ergebnis
         isModalVisible.value = true;
       } catch (error) {
         console.error("Fehler bei der Verfügbarkeitsprüfung:", error);
-        modalMessage.value = "Es ist ein Fehler bei der Verfügbarkeitsprüfung aufgetreten.";
+        modalMessage.value = "Es ist ein Fehler aufgetreten.";
         isAvailableLocal.value = false;
         isBookable.value = false;
         isModalVisible.value = true;
       }
+    };
+
+    const handleModalClose = () => {
+      isModalVisible.value = false;
     };
 
     return {
@@ -78,7 +89,9 @@ export default {
       isModalVisible,
       modalMessage,
       isAvailableLocal,
-      isBookable
+      isBookable,
+      handleModalClose,
+      minDate
     };
   },
 };
@@ -87,10 +100,12 @@ export default {
 <template>
   <div class="check-availability">
     <label for="from-date">Anreisedatum:</label>
-    <input type="date" id="from-date" v-model="fromDate" class="form-control"/>
+    <!-- Setze das heutige Datum als minimalen Wert für das Anreisedatum -->
+    <input type="date" id="from-date" v-model="fromDate" class="form-control" :min="minDate" />
 
     <label for="to-date">Abreisedatum:</label>
-    <input type="date" id="to-date" v-model="toDate" class="form-control"/>
+    <!-- Setze das heutige Datum als minimalen Wert für das Abreisedatum -->
+    <input type="date" id="to-date" v-model="toDate" class="form-control" :min="minDate" />
 
     <button :disabled="isLoading" @click="checkRoomAvailability" class="btn btn-primary">
       {{ isLoading ? "Prüfen..." : "Verfügbarkeit prüfen" }}
@@ -102,6 +117,7 @@ export default {
         :message="modalMessage"
         :is-available="isAvailableLocal"
         :is-bookable="isBookable"
+        @close="handleModalClose"
     />
   </div>
 </template>
