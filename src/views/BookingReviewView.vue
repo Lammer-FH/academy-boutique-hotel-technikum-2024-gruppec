@@ -4,20 +4,20 @@ import BookRoomView from "@/views/BookRoomView.vue";
 import Footer from "@/components/Footer.vue";
 import router from "@/router";
 import ConfirmationView from "@/views/ConfirmationView.vue";
+import {useCheckAvailabilityStore} from "@/stores/CheckAvailabilityStore";
 
 export default {
   name: "BookingReviewView",
   components: {
     BookRoomView, Footer, ConfirmationView
   },
-
   data: () => {
     return {
       items: [
         {
-          room_ID: useBookRoomStore().bookingDetails.roomId,
-          from_Date: useBookRoomStore().bookingDetails.fromDate,
-          to_Date: useBookRoomStore().bookingDetails.toDate,
+          room_ID: useCheckAvailabilityStore().availabilityDetails.roomId,
+          from_Date: useCheckAvailabilityStore().availabilityDetails.fromDate,
+          to_Date: useCheckAvailabilityStore().availabilityDetails.toDate,
           first_name: useBookRoomStore().bookingDetails.firstname,
           last_name: useBookRoomStore().bookingDetails.lastname,
           Geburtsdatum: useBookRoomStore().bookingDetails.birthdate,
@@ -32,7 +32,7 @@ export default {
     sendBooking() {
       console.log("send Booking")
       useBookRoomStore().bookRoom()
-      if (useBookRoomStore().error === null){
+      if (useBookRoomStore().error === ''){
         router.push('/ConfirmationView')
       } else {
         console.log(useBookRoomStore().error)

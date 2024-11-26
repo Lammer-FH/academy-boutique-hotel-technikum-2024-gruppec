@@ -16,8 +16,8 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             confirmEmail: '',
             breakfast: false,
         },
-        bookingId: null, // ID der erfolgreichen Buchung
-        error: null, // Speichert Fehlernachrichten
+        bookingId: '', // ID der erfolgreichen Buchung
+        error: '', // Speichert Fehlernachrichten
         isLoading: false, // Zeigt an, ob ein API-Aufruf läuft
     }),
 
@@ -30,7 +30,18 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
           this.bookingId = id
         },
         async bookRoom() {
-            const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails
+
+            this.error = ""
+
+            for(let field in this.bookingDetails) {
+                const formData = this.bookingDetails[field]
+                if(formData === '' || formData === null) {
+                    this.error += "Bitte "+field+ "ausfüllen <br>"
+                }
+            }
+            if(this.error !== "") return ;
+
+       /*     const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails
 
             console.log("book room")
             this.isLoading = true;
@@ -38,19 +49,19 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             if (!roomId || !fromDate || !toDate || !firstname || !lastname || !birthdate || !email) {
                 this.error = 'Bitte alle Felder ausfüllen.';
                 return;
-            }
+            }*/
 
             // URL mit Platzhaltern ersetzen bei Testdaten
-            const apiUrl = `${baseUrl}/room/${roomId}/from/${fromDate}/to/${toDate}`;
+            const apiUrl = `${baseUrl}/room/${this.bookingDetails.roomId}/from/${this.bookingDetails.fromDate}/to/${this.bookingDetails.toDate}`;
             console.log("apiURL: ")
             console.log(apiUrl)
 
             const data = {
-                firstname,
-                lastname,
-                birthdate,
-                email,
-                breakfast
+                firstname: this.bookingDetails.firstname,
+                lastname: this.bookingDetails.lastname,
+                birthdate: this.bookingDetails.birthdate,
+                email: this.bookingDetails.email,
+                breakfast: this.bookingDetails.breakfast
             };
 
             try {

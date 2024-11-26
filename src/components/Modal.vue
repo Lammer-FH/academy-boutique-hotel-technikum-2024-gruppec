@@ -29,8 +29,8 @@ export default {
       this.$emit('update:modelValue', false);
       this.$emit('close');
     },
-    bookNow() {
-      alert("Das Zimmer wurde gebucht!");
+    navigateToBooking() {
+      this.$router.push('/BookRoomView')
     }
   }
 };
@@ -50,7 +50,7 @@ export default {
     <p class="text-center">{{ message }}</p>
 
     <div v-if="isBookable" class="text-center">
-      <b-button href="BookRoomView" variant="success" class="w-100 mt-3">
+      <b-button @click="navigateToBooking()" variant="success" class="w-100 mt-3">
         Jetzt buchen
       </b-button>
     </div>

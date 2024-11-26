@@ -7,15 +7,14 @@ export default {
   components: {
     Footer
   },
-  data: () => {
-    return {
-      booking_Id: useBookRoomStore().bookingId,
-      from_Date: useBookRoomStore().bookingDetails.fromDate,
-      to_Date: useBookRoomStore().bookingDetails.toDate,
-      first_name: useBookRoomStore().bookingDetails.firstname,
-      last_name: useBookRoomStore().bookingDetails.lastname,
-    };
-  }
+  computed: {
+      booking_Id : () => useBookRoomStore().bookingId,
+      from_Date:() =>  useBookRoomStore().bookingDetails.fromDate,
+      to_Date:() =>  useBookRoomStore().bookingDetails.toDate,
+      first_name:() =>  useBookRoomStore().bookingDetails.firstname,
+      last_name: () => useBookRoomStore().bookingDetails.lastname,
+    }
+
 }
 </script>
 

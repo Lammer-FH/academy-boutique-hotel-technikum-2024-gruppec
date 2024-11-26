@@ -49,6 +49,15 @@ export default {
       //  isLoading
       //};
     },
+    booking() {
+      useBookRoomStore().setBookingDetails({
+        roomId: this.room_ID,
+        fromDate: this.from_Date,
+        toDate: this.to_Date,
+        ...this.formData,
+      });
+      this.$router.push('/BookingReviewView')
+    }
   },
 };
 
@@ -146,13 +155,7 @@ export default {
 
       <b-row>
         <b-col class="text-center">
-          <b-button type="submit" variant="primary">Buchung überprüfen</b-button>
-          <!--
-          <b-button href="/BookingReviewView">Buchung prüfen</b-button>
-          <b-button type="submit" variant="primary" :disabled="isLoading">
-            {{ isLoading ? 'Laden...' : 'Buchung prüfen' }} TODO: fix reference
-          </b-button>
-          -->
+          <b-button @click="booking()" variant="primary">Buchung überprüfen</b-button>
         </b-col>
       </b-row>
     </b-form>
