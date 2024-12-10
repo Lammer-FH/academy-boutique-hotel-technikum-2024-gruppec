@@ -32,9 +32,13 @@ export default {
         </b-navbar-nav>
       </b-collapse>
 
-      <b-nav-item class="nav-icon">
-        <img src="@/assets/login.png" alt="Login" class="login-icon"/>
-      </b-nav-item>
+      <b-nav-item-dropdown class="nav-icon" right>
+        <template #button-content>
+          <img src="@/assets/login.png" alt="Login" class="login-icon" />
+        </template>
+        <b-dropdown-item href="#">Profile</b-dropdown-item>
+        <b-dropdown-item href="#">Log In</b-dropdown-item>
+      </b-nav-item-dropdown>
 
       <b-navbar-toggle target="nav-collapse" class="navbar-toggle-right"></b-navbar-toggle>
 
