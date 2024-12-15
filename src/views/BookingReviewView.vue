@@ -8,6 +8,9 @@ import {useCheckAvailabilityStore} from "@/stores/CheckAvailabilityStore";
 
 export default {
   name: "BookingReviewView",
+  components: {
+    Footer,
+  },
   setup() {
     const bookRoomStore = useBookRoomStore();
 
@@ -72,6 +75,7 @@ export default {
       </b-col>
     </b-row>
   </b-container>
+  <Footer />
 </template>
 
 <style scoped>
