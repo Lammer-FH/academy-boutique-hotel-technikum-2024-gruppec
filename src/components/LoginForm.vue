@@ -1,16 +1,28 @@
 <script>
+import {useAuthStore} from "@/stores/auth";
+
 export default {
   data() {
     return {
       email: "",
       password: "",
+      isLoading: false,
+      error: null,
     };
   },
   methods: {
-    onLogin() {
-      console.log("E-Mail:", this.email);
-      console.log("Passwort:", this.password);
-      // Später: API-Aufruf hier einfügen
+    async onLogin() {
+      const authStore = useAuthStore();
+      this.isLoading = true;
+      this.error = null;
+      try {
+        await authStore.login(this.email, this.password);
+        this.$emit("login-success", this.email);
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.isLoading = false;
+      }
     },
   },
 };
