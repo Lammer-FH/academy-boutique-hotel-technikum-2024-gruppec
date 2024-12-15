@@ -27,7 +27,8 @@ export default {
   methods: {
     setPage(page) {
       if (page >= 1 && page <= this.totalPages) {
-        this.$emit('update:modelValue', page); // Aktualisieren des aktuellen Werts für v-model
+        this.$emit('update:modelValue', page);// Aktualisieren des aktuellen Werts für v-model
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     },
     nextPage() {
