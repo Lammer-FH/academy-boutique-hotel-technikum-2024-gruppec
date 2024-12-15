@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth"; //u7
 
 const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
 

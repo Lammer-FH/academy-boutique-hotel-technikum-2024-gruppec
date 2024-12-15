@@ -11,9 +11,6 @@ export default {
       room_ID: useCheckAvailabilityStore().availabilityDetails.roomId,
       from_Date: useCheckAvailabilityStore().availabilityDetails.fromDate,
       to_Date: useCheckAvailabilityStore().availabilityDetails.toDate,
-      //roomId: 101, // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
-      //fromDate: '2027-07-02', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
-      //toDate: '2027-07-05', // TODO: Referenz aus useCheckAvailabilityStore übernehmen.
       bookRoomStore: useBookRoomStore(),
       formData: {
         firstname: '',
@@ -28,8 +25,27 @@ export default {
   methods: {
     useCheckAvailabilityStore,
     handleReview() {
+      const today = new Date();
+      const birthdate = new Date(this.formData.birthdate);
+
+      // Prüfen, ob die E-Mail-Adressen übereinstimmen
       if (this.formData.email !== this.formData.confirmEmail) {
-        alert('Emails stimmen nicht überein!');
+        alert('Die E-Mail-Adressen stimmen nicht überein!');
+        return;
+      }
+
+      // Geburtsdatum: Prüfen, ob es in der Vergangenheit liegt
+      if (birthdate >= today) {
+        alert('Das Geburtsdatum muss in der Vergangenheit liegen!');
+        return;
+      }
+
+      // Geburtsdatum: Prüfen, ob der Benutzer mindestens 18 Jahre alt ist
+      const age = today.getFullYear() - birthdate.getFullYear();
+      const monthDiff = today.getMonth() - birthdate.getMonth();
+      const dayDiff = today.getDate() - birthdate.getDate();
+      if (age < 18 || (age === 18 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)))) {
+        alert('Sie müssen mindestens 18 Jahre alt sein!');
         return;
       }
 
@@ -40,14 +56,6 @@ export default {
         ...this.formData,
       });
       router.push('/BookingReviewView')
-      // const isLoading = computed(() => BookRoomStore.isLoading);
-
-      // Optional: Emit-Event für den Elternteil
-      //this.$emit('reviewData', this.formData);
-
-      //return {
-      //  isLoading
-      //};
     },
     booking() {
       useBookRoomStore().setBookingDetails({
@@ -155,7 +163,8 @@ export default {
 
       <b-row>
         <b-col class="text-center">
-          <b-button @click="booking()" variant="primary">Buchung überprüfen</b-button>
+          <!--<b-button @click="booking()" variant="primary">Buchung überprüfen</b-button>-->
+          <b-button type="submit" variant="primary">Buchung überprüfen</b-button>
         </b-col>
       </b-row>
     </b-form>
