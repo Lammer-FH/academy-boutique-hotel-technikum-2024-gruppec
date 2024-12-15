@@ -17,6 +17,7 @@ export default {
     return {
       isLoggedIn: false,
       userEmail: null,
+      isNavCollapsed: true,
     };
   },
   methods: {
@@ -29,6 +30,12 @@ export default {
       this.userEmail = null;
       localStorage.removeItem("jwt");
     },
+    closeNav() {
+      const navbarCollapse = document.getElementById('nav-collapse');
+      if (navbarCollapse) {
+        navbarCollapse.classList.remove('show');
+      }
+    }
   },
 };
 </script>
@@ -41,13 +48,13 @@ export default {
         <img src="@/assets/nerd-logo.png" alt="Logo" class="nerd-logo"/>
       </b-navbar-brand>
 
-      <b-collapse id="nav-collapse" is-nav="true">
+      <b-collapse id="nav-collapse" is-nav="true" v-model="isNavCollapsed">
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="/roomsView">Rooms</b-nav-item>
-          <b-nav-item to="/impressum">Impressum</b-nav-item>
-          <b-nav-item to="/ueber-uns">Über uns</b-nav-item>
-          <b-nav-item to="/BookRoomView">Booking</b-nav-item>
+          <b-nav-item to="/" v-on:click="closeNav">Home</b-nav-item>
+          <b-nav-item to="/roomsView" v-on:click="closeNav">Zimmer</b-nav-item>
+          <b-nav-item to="/BookRoomView" v-on:click="closeNav">Buchen</b-nav-item>
+          <b-nav-item to="/ueber-uns" v-on:click="closeNav">Über uns</b-nav-item>
+          <b-nav-item to="/impressum" v-on:click="closeNav">Impressum</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
 
@@ -91,7 +98,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: #557878;
+  background-color: #C9C5CB;
   color: white;
 }
 
