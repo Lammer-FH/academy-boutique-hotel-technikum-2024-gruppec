@@ -1,5 +1,6 @@
 <script>
 import {BNavbar, BNavbarBrand, BNavbarToggle, BCollapse, BNavbarNav, BNavItem} from 'bootstrap-vue-3';
+import LoginForm from "@/components/LoginForm.vue";
 
 export default {
   name: "NavBar",
@@ -10,8 +11,26 @@ export default {
     BCollapse,
     BNavbarNav,
     BNavItem,
-  }
-}
+    LoginForm
+  },
+  data() {
+    return {
+      isLoggedIn: false,
+      userEmail: null,
+    };
+  },
+  methods: {
+    onLoginSuccess(email) {
+      this.isLoggedIn = true,
+          this.userEmail = email;
+    },
+    onLogout() {
+      this.isLoggedIn = false;
+      this.userEmail = null;
+      localStorage.removeItem("jwt");
+    },
+  },
+};
 </script>
 
 <template>
@@ -36,14 +55,26 @@ export default {
         <template #button-content>
           <img src="@/assets/login.png" alt="Login" class="login-icon" />
         </template>
-        <b-dropdown-item href="#">Profile</b-dropdown-item>
-        <b-dropdown-item href="#">Log In</b-dropdown-item>
+        <template v-if="isLoggedIn">
+          <b-dropdown-item>
+            <p>Willkommen, {{ userEmail }}</p>
+          </b-dropdown-item>
+          <b-dropdown-item @click="onLogout">
+            <b-button variant="danger">Abmelden</b-button>
+          </b-dropdown-item>
+        </template>
+        <template v-else>
+          <b-dropdown-item>
+            <LoginForm @login-success="onLoginSuccess" />
+          </b-dropdown-item>
+          <b-dropdown-item>
+            <p>Noch kein Konto? <b-link href="/register">Hier registrieren</b-link></p>
+          </b-dropdown-item>
+        </template>
       </b-nav-item-dropdown>
 
       <b-navbar-toggle target="nav-collapse" class="navbar-toggle-right"></b-navbar-toggle>
-
     </b-navbar>
-
   </div>
 </template>
 
