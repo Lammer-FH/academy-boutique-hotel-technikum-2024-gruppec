@@ -51,6 +51,11 @@ export default {
         </b-navbar-nav>
       </b-collapse>
 
+      <!-- Binärcode anzeigen, wenn der Benutzer eingeloggt ist -->
+      <span v-if="isLoggedIn" class="binary-code">
+        01001000 01100001 01101100 01101100 01101111 00100001
+      </span>
+
       <b-nav-item-dropdown class="nav-icon" right>
         <template #button-content>
           <img src="@/assets/login.png" alt="Login" class="login-icon" />

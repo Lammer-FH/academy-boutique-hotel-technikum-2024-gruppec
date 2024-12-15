@@ -19,7 +19,7 @@ export default {
         await authStore.login(this.email, this.password);
         this.$emit("login-success", this.email);
       } catch (err) {
-        this.error = err.message;
+        this.error = err.message || "Login fehlgeschlagen: Ungültige E-Mail oder Passwort."; // Fehlermeldung
       } finally {
         this.isLoading = false;
       }
@@ -49,6 +49,8 @@ export default {
       ></b-form-input>
     </b-form-group>
     <b-button type="submit" variant="primary">Anmelden</b-button>
+    <!-- Fehlermeldung -->
+    <p v-if="error" class="text-danger mt-2">{{ error }}</p>
   </b-form>
 </template>
 

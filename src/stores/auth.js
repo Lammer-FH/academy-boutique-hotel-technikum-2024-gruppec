@@ -19,17 +19,31 @@ export const useAuthStore = defineStore("auth", {
                         secret: password,
                     }
                 );
-                const token = response.data.token;
+
+                console.log("API Response:", response.data);
+
+                // Die API gibt direkt den Token als String zurück
+                const token = response.data;
+                console.log("Extracted Token:", token);
+
+                if (!token) {
+                    console.error("Token ist null oder undefined!");
+                    return;
+                }
+
+                // Speichere den Token im Store und localStorage
                 this.token = token;
                 this.userEmail = email;
-
-                // Speichere den Token im localStorage
                 localStorage.setItem("jwt", token);
+
+                console.log("Token in localStorage nach Speicherung:", localStorage.getItem("jwt"));
+
             } catch (error) {
                 console.error("Login fehlgeschlagen:", error);
                 throw new Error("Login fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.");
             }
         },
+
         logout() {
             this.token = null;
             this.userEmail = null;

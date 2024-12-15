@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { useAuthStore } from "@/stores/auth";
 
 const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
 
@@ -41,16 +42,6 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             }
             if(this.error !== "") return ;
 
-       /*     const { roomId, fromDate, toDate, firstname, lastname, birthdate, email, breakfast } = this.bookingDetails
-
-            console.log("book room")
-            this.isLoading = true;
-
-            if (!roomId || !fromDate || !toDate || !firstname || !lastname || !birthdate || !email) {
-                this.error = 'Bitte alle Felder ausfüllen.';
-                return;
-            }*/
-
             // URL mit Platzhaltern ersetzen bei Testdaten
             const apiUrl = `${baseUrl}/room/${this.bookingDetails.roomId}/from/${this.bookingDetails.fromDate}/to/${this.bookingDetails.toDate}`;
             console.log("apiURL: ")
@@ -64,12 +55,17 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                 breakfast: this.bookingDetails.breakfast
             };
 
+            //Login während Buchung - speicherung der Buchungsdaten je User - dynamischer Header
+            const headers = { "Content-Type": "application/json" };
+            const authStore = useAuthStore();
+            if (authStore.isLoggedIn) {
+                headers.Authorization = `Bearer ${authStore.token}`;
+                console.log("JWT im Header:", headers.Authorization);
+            }
+            console.log("Headers:", headers); // Debugging Header
+
             try {
-                const response = await axios.post(apiUrl, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+                const response = await axios.post(apiUrl, data, { headers: headers });
                 if (response.status === 201) {
                     this.setBookingId(response.data.id)
                     //this.bookingId = response.data.id

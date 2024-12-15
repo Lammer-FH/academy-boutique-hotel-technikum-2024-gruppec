@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { useAuthStore } from "@/stores/auth";
 
 const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
 
@@ -49,8 +50,16 @@ export const useCheckAvailabilityStore = defineStore('CheckAvailabilityStore', {
             this.isLoading = true
             this.error = null
 
+            const headers = { "Content-Type": "application/json" };
+            const authStore = useAuthStore();
+            if (authStore.isLoggedIn) {
+                headers.Authorization = `Bearer ${authStore.token}`;
+                console.log("JWT im Header:", headers.Authorization);
+            }
+            console.log("Headers:", headers); // Debugging Header
+
             try {
-                const response = await axios.get(apiUrl)
+                const response = await axios.get(apiUrl, { headers })
 
                 // Überprüfen der Antwort auf "available"
                 if (response.data.available === true) {
