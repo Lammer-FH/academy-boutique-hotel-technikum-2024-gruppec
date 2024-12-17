@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     validateForm() {
-      // Validierung der Eingaben
       if (!this.registerDetails.email.includes("@")) {
         this.errorMessage = "Ungültige E-Mail-Adresse!";
         return false;
@@ -37,8 +36,8 @@ export default {
     },
 
     async submitForm() {
-      this.errorMessage = ""; // Reset Fehler
-      if (!this.validateForm()) return; // Formularvalidierung
+      this.errorMessage = "";
+      if (!this.validateForm()) return;
 
       const registerStore = useRegisterStore();
       registerStore.registerDetails = { ...this.registerDetails };
@@ -47,11 +46,11 @@ export default {
         this.isLoading = true;
         await registerStore.registerUser();
         alert("Registrierung erfolgreich!");
-        router.push("/"); // Weiterleitung
+        router.push("/");
       } catch (error) {
-        this.errorMessage = error || "Fehler bei der Registrierung. Bitte versuchen Sie es erneut.";
+        this.errorMessage = error || "Fehler bei der Registrierung.";
       } finally {
-        this.isLoading = false; // Ladezustand beenden
+        this.isLoading = false;
       }
     },
   },
@@ -59,82 +58,85 @@ export default {
 </script>
 
 <template>
-  <div class="register-form">
-    <h1>Registrieren</h1>
-    <form @submit.prevent="submitForm">
-      <label for="firstname">Vorname:</label>
-      <input v-model="registerDetails.firstname" type="text" id="firstname" required />
+  <div class="register-form mb-5">
+    <h1 class="text-center">Registrieren</h1>
+    <b-form @submit.prevent="submitForm">
+      <b-form-group label="Vorname" label-for="firstname">
+        <b-form-input
+            id="firstname"
+            v-model="registerDetails.firstname"
+            type="text"
+            placeholder="Vorname eingeben"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <label for="lastname">Nachname:</label>
-      <input v-model="registerDetails.lastname" type="text" id="lastname" required />
+      <b-form-group label="Nachname" label-for="lastname">
+        <b-form-input
+            id="lastname"
+            v-model="registerDetails.lastname"
+            type="text"
+            placeholder="Nachname eingeben"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <label for="email">E-Mail:</label>
-      <input v-model="registerDetails.email" type="email" id="email" required />
+      <b-form-group label="E-Mail" label-for="email-register">
+        <b-form-input
+            id="email-register"
+            v-model="registerDetails.email"
+            type="email"
+            placeholder="E-Mail eingeben"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <label for="birthdate">Geburtsdatum:</label>
-      <input v-model="registerDetails.birthdate" type="date" id="birthdate" required />
+      <b-form-group label="Geburtsdatum" label-for="birthdate">
+        <b-form-input
+            id="birthdate"
+            v-model="registerDetails.birthdate"
+            type="date"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <label for="username">Benutzername:</label>
-      <input v-model="registerDetails.username" type="text" id="username" required />
+      <b-form-group label="Benutzername" label-for="username">
+        <b-form-input
+            id="username"
+            v-model="registerDetails.username"
+            type="text"
+            placeholder="Benutzername eingeben"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <label for="password">Passwort:</label>
-      <input v-model="registerDetails.password" type="password" id="password" required />
+      <b-form-group label="Passwort" label-for="password-register">
+        <b-form-input
+            id="password-register"
+            v-model="registerDetails.password"
+            type="password"
+            placeholder="Passwort eingeben"
+            required
+        ></b-form-input>
+      </b-form-group>
 
-      <!-- Fehlermeldung anzeigen -->
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <!-- Fehlermeldung -->
+      <b-alert v-if="errorMessage" variant="danger" show>
+        {{ errorMessage }}
+      </b-alert>
 
-      <!-- Loading-Zustand anzeigen -->
-      <button type="submit" :disabled="isLoading">
+      <!-- Submit-Button mit Loading-Zustand -->
+      <b-button type="submit" variant="primary" :disabled="isLoading">
         {{ isLoading ? "Wird gesendet..." : "Registrieren" }}
-      </button>
-    </form>
+      </b-button>
+    </b-form>
   </div>
 </template>
 
 <style scoped>
-.register-form {
-  max-width: 400px;
-  margin: auto;
   padding: 20px;
+  background-color: #f8f9fa;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background: #f9f9f9;
-}
-
-h1 {
-  text-align: center;
-}
-
-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-form input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-.error-message {
-  color: red;
-  margin-bottom: 15px;
-  text-align: center;
 }
 </style>
