@@ -134,6 +134,7 @@ export default {
 </template>
 
 <style scoped>
+.register-form {
   padding: 20px;
   background-color: #f8f9fa;
   border: 1px solid #ccc;
