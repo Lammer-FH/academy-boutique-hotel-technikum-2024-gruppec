@@ -21,21 +21,71 @@ import Zimmer_10_KatherineJohnson from "@/assets/RoomImages/Zimmer_10_KatherineJ
 
 export default defineComponent({
   name: 'Rooms',
-  components: { Footer, CardsRooms, Pagination },
+  components: {Footer, CardsRooms, Pagination},
   data() {
     return {
       roomData: [], // Die dynamischen Zimmerdaten
       localRoomInfo: [
-        { id: 1, localTitle: "Alan Turing", imgSrc: Zimmer_1_AlanTuring, description: "Das Zimmer von Alan Turing bringt dich zurück zu den Anfängen der modernen Informatik. In einem stilvoll minimalistischen Ambiente erinnern kryptische Muster und Retro-Details an Turings Pionierarbeit im Codebrechen und der Maschinenentwicklung. Hier kannst du auf Spurensuche gehen – perfekt für alle, die Rätsel und Mathematik lieben!" },
-        { id: 2, localTitle: "Grace Hopper", imgSrc: Zimmer_2_GraceHopper, description: "Ein Raum, der den Entdeckergeist von Grace Hopper feiert! Spielerische Elemente wie großformatige Plakate und marineblaue Akzente verweisen auf ihren Einfluss in der Programmiergeschichte und ihrer Zeit in der Navy. Ein inspirierender Raum für Pioniere, die mutig sind und Neues wagen." },
-        { id: 3, localTitle: "Ada Lovelace", imgSrc: Zimmer_3_AdaLovelace, description: "Betritt eine Welt voller Eleganz und Logik: Ada Lovelaces Raum vereint klassisches Design mit mathematischer Raffinesse. Florale Details, viktorianische Muster und subtile Anspielungen auf ihre analytische Arbeit machen diesen Raum zu einem Rückzugsort für Visionäre." },
-        { id: 4, localTitle: "John von Neumann", imgSrc: Zimmer_4_JohnVonNeumann, description: "Mathematische Präzision trifft hier auf stilvollen Retro-Chic! Dieses Zimmer ist eine Hommage an das Genie von Neumann, dessen Berechnungen das 20. Jahrhundert veränderten. Klare Linien, geometrische Muster und dezente Anspielungen auf seine Berechnungen schaffen eine harmonische Atmosphäre." },
-        { id: 5, localTitle: "Margaret Hamilton", imgSrc: Zimmer_5_MargaretHamilton, description: "Mut und Innovation prägen Margaret Hamiltons Zimmer, das Astronautenflair mit Details der Apollo-Ära verbindet. Von retro-futuristischen Lampen bis zu Code-Zeilen an der Wand erinnert alles an Hamiltons Rolle bei der Mondlandung. Ein Raum für Mondträumer und Sternenforscher!" },
-        { id: 6, localTitle: "Steve Wozniak", imgSrc: Zimmer_6_SteveWozniak, description: "Ein Raum für Technikbegeisterte: Inspiriert von Wozniaks unkonventionellem Genie, besticht das Zimmer durch Retro-Apple-Vibes und kreative Details. Bunte Elemente und verspielte Technik-Gadgets machen diesen Raum zum perfekten Spot für alle Tüftler und Bastler." },
-        { id: 7, localTitle: "Tim Berners Lee", imgSrc: Zimmer_7_TimBernersLee, description: "Dieses Zimmer ist eine Hommage an die grenzenlose Welt des Internets! Klar und vernetzt gestaltet, mit sanften Blau- und Grautönen, bietet der Raum eine Atmosphäre des freien Denkens. Perfekt für jene, die Vernetzung und Informationsaustausch lieben." },
-        { id: 8, localTitle: "Linus Torvalds", imgSrc: Zimmer_8_LinusTorvalds, description: "Willkommen im Herzen der Open-Source-Kultur! Das minimalistisch gestaltete Zimmer spiegelt Torvalds’ Linux-Ethos wider: Funktionalität trifft auf schlichte Eleganz. An der Wand prangt ein Code-Fragment – ein Raum, der zum Experimentieren und Erkunden inspiriert." },
-        { id: 9, localTitle: "Isaac Asimov", imgSrc: Zimmer_9_IsaacAsimov, description: "In diesem Zimmer verschmilzt Wissenschaft mit Science-Fiction: Asimovs Zukunftsvisionen spiegeln sich in metallic Akzenten, futuristischen Lampen und Bücherregalen voller Klassiker wider. Ein Raum, der zum Träumen und Erkunden neuer Welten einlädt." },
-        { id: 10, localTitle: "Katherine Johnson", imgSrc: Zimmer_10_KatherineJohnson, description: "Hier trifft mathematische Präzision auf kosmische Eleganz. Inspiriert von Johnsons Berechnungen für die NASA, ist das Zimmer geprägt von einem modernen Space-Design, das Mut und Entschlossenheit feiert. Perfekt für alle, die sich zu den Sternen hingezogen fühlen!" },
+        {
+          id: 1,
+          localTitle: "Alan Turing",
+          imgSrc: Zimmer_1_AlanTuring,
+          description: "Das Zimmer von Alan Turing bringt dich zurück zu den Anfängen der modernen Informatik. In einem stilvoll minimalistischen Ambiente erinnern kryptische Muster und Retro-Details an Turings Pionierarbeit im Codebrechen und der Maschinenentwicklung. Hier kannst du auf Spurensuche gehen – perfekt für alle, die Rätsel und Mathematik lieben!"
+        },
+        {
+          id: 2,
+          localTitle: "Grace Hopper",
+          imgSrc: Zimmer_2_GraceHopper,
+          description: "Ein Raum, der den Entdeckergeist von Grace Hopper feiert! Spielerische Elemente wie großformatige Plakate und marineblaue Akzente verweisen auf ihren Einfluss in der Programmiergeschichte und ihrer Zeit in der Navy. Ein inspirierender Raum für Pioniere, die mutig sind und Neues wagen."
+        },
+        {
+          id: 3,
+          localTitle: "Ada Lovelace",
+          imgSrc: Zimmer_3_AdaLovelace,
+          description: "Betritt eine Welt voller Eleganz und Logik: Ada Lovelaces Raum vereint klassisches Design mit mathematischer Raffinesse. Florale Details, viktorianische Muster und subtile Anspielungen auf ihre analytische Arbeit machen diesen Raum zu einem Rückzugsort für Visionäre."
+        },
+        {
+          id: 4,
+          localTitle: "John von Neumann",
+          imgSrc: Zimmer_4_JohnVonNeumann,
+          description: "Mathematische Präzision trifft hier auf stilvollen Retro-Chic! Dieses Zimmer ist eine Hommage an das Genie von Neumann, dessen Berechnungen das 20. Jahrhundert veränderten. Klare Linien, geometrische Muster und dezente Anspielungen auf seine Berechnungen schaffen eine harmonische Atmosphäre."
+        },
+        {
+          id: 5,
+          localTitle: "Margaret Hamilton",
+          imgSrc: Zimmer_5_MargaretHamilton,
+          description: "Mut und Innovation prägen Margaret Hamiltons Zimmer, das Astronautenflair mit Details der Apollo-Ära verbindet. Von retro-futuristischen Lampen bis zu Code-Zeilen an der Wand erinnert alles an Hamiltons Rolle bei der Mondlandung. Ein Raum für Mondträumer und Sternenforscher!"
+        },
+        {
+          id: 6,
+          localTitle: "Steve Wozniak",
+          imgSrc: Zimmer_6_SteveWozniak,
+          description: "Ein Raum für Technikbegeisterte: Inspiriert von Wozniaks unkonventionellem Genie, besticht das Zimmer durch Retro-Apple-Vibes und kreative Details. Bunte Elemente und verspielte Technik-Gadgets machen diesen Raum zum perfekten Spot für alle Tüftler und Bastler."
+        },
+        {
+          id: 7,
+          localTitle: "Tim Berners Lee",
+          imgSrc: Zimmer_7_TimBernersLee,
+          description: "Dieses Zimmer ist eine Hommage an die grenzenlose Welt des Internets! Klar und vernetzt gestaltet, mit sanften Blau- und Grautönen, bietet der Raum eine Atmosphäre des freien Denkens. Perfekt für jene, die Vernetzung und Informationsaustausch lieben."
+        },
+        {
+          id: 8,
+          localTitle: "Linus Torvalds",
+          imgSrc: Zimmer_8_LinusTorvalds,
+          description: "Willkommen im Herzen der Open-Source-Kultur! Das minimalistisch gestaltete Zimmer spiegelt Torvalds’ Linux-Ethos wider: Funktionalität trifft auf schlichte Eleganz. An der Wand prangt ein Code-Fragment – ein Raum, der zum Experimentieren und Erkunden inspiriert."
+        },
+        {
+          id: 9,
+          localTitle: "Isaac Asimov",
+          imgSrc: Zimmer_9_IsaacAsimov,
+          description: "In diesem Zimmer verschmilzt Wissenschaft mit Science-Fiction: Asimovs Zukunftsvisionen spiegeln sich in metallic Akzenten, futuristischen Lampen und Bücherregalen voller Klassiker wider. Ein Raum, der zum Träumen und Erkunden neuer Welten einlädt."
+        },
+        {
+          id: 10,
+          localTitle: "Katherine Johnson",
+          imgSrc: Zimmer_10_KatherineJohnson,
+          description: "Hier trifft mathematische Präzision auf kosmische Eleganz. Inspiriert von Johnsons Berechnungen für die NASA, ist das Zimmer geprägt von einem modernen Space-Design, das Mut und Entschlossenheit feiert. Perfekt für alle, die sich zu den Sternen hingezogen fühlen!"
+        },
       ],
       currentPage: 1, // die aktuelle Seite
       itemsPerPage: 5, // maximal 5 Zimmer pro Seite

@@ -32,7 +32,7 @@ export default {
     sendBooking() {
       console.log("send Booking")
       useBookRoomStore().bookRoom()
-      if (useBookRoomStore().error === ''){
+      if (useBookRoomStore().error === '') {
         router.push('/ConfirmationView')
       } else {
         console.log(useBookRoomStore().error)
@@ -58,7 +58,7 @@ export default {
         <b-button variant="success" @click="sendBooking">Buchung abschließen</b-button>
       </div>
       <div>
-        <b-alert show variant="warning">{{useBookRoomStore().error}}</b-alert>
+        <b-alert show variant="warning">{{ useBookRoomStore().error }}</b-alert>
       </div>
     </b-row>
   </b-container>
