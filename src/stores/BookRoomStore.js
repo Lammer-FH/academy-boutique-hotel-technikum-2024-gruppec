@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { useAuthStore } from "@/stores/auth"; //u7
+import { useAuthStore } from "@/stores/auth"; // Auth-Store für JWT
 
 const baseUrl = 'https://boutique-hotel.helmuth-lammer.at/api/v1';
 
@@ -16,6 +16,15 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             email: '',
             confirmEmail: '',
             breakfast: false,
+            room: { // Default-Werte für die Zimmerdetails aus usecase5
+                title: '',
+                image: '',
+                description: '',
+                rooms: 0,
+                beds: 0,
+                price: 0,
+                extras: []
+            }
         },
         bookingId: '', // ID der erfolgreichen Buchung
         error: '', // Speichert Fehlernachrichten
@@ -24,29 +33,54 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
 
     actions: {
         setBookingDetails(details) {
-            this.bookingDetails = { ...this.bookingDetails, ...details }
-            //console.log(this.bookingDetails)
+            this.bookingDetails = { ...this.bookingDetails, ...details };
+            console.log("Aktualisierte Buchungsdetails:", this.bookingDetails);
         },
-        setBookingId(id){
-          this.bookingId = id
+
+        setBookingId(id) {
+            this.bookingId = id;
         },
+
+        async fetchRoomDetails() {
+            if (!this.bookingDetails.roomId) {
+                console.error("Keine Zimmer-ID vorhanden!");
+                return;
+            }
+            try {
+                this.isLoading = true;
+                const response = await axios.get(`${baseUrl}/rooms/${this.bookingDetails.roomId}`);
+                this.bookingDetails.room = {
+                    title: response.data.title || '',
+                    image: response.data.image || '',
+                    description: response.data.description || '',
+                    rooms: response.data.rooms || 0,
+                    beds: response.data.beds || 0,
+                    price: response.data.price || 0,
+                    extras: response.data.extras || []
+                };
+            } catch (error) {
+                console.error("Fehler beim Abrufen der Zimmerdetails:", error);
+                this.error = "Fehler beim Laden der Zimmerdetails. Bitte versuchen Sie es später erneut.";
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
         async bookRoom() {
+            this.error = "";
 
-            this.error = ""
-
-            for(let field in this.bookingDetails) {
-                const formData = this.bookingDetails[field]
-                if(formData === '' || formData === null) {
-                    this.error += "Bitte "+field+ "ausfüllen <br>"
+            // Validierung der Eingabefelder
+            for (let field in this.bookingDetails) {
+                const formData = this.bookingDetails[field];
+                if (formData === '' || formData === null) {
+                    this.error += `Bitte ${field} ausfüllen. <br>`;
                 }
             }
-            if(this.error !== "") return ;
 
-            // URL mit Platzhaltern ersetzen bei Testdaten
+            if (this.error !== "") return;
+
+            // API URL für Buchung
             const apiUrl = `${baseUrl}/room/${this.bookingDetails.roomId}/from/${this.bookingDetails.fromDate}/to/${this.bookingDetails.toDate}`;
-            console.log("apiURL: ")
-            console.log(apiUrl)
-
             const data = {
                 firstname: this.bookingDetails.firstname,
                 lastname: this.bookingDetails.lastname,
@@ -55,31 +89,28 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
                 breakfast: this.bookingDetails.breakfast
             };
 
-            //Login während Buchung - speicherung der Buchungsdaten je User - dynamischer Header
+            // JWT-Header hinzufügen, falls Benutzer eingeloggt ist
             const headers = { "Content-Type": "application/json" };
             const authStore = useAuthStore();
             if (authStore.isLoggedIn) {
                 headers.Authorization = `Bearer ${authStore.token}`;
                 console.log("JWT im Header:", headers.Authorization);
             }
-            console.log("Headers:", headers); // Debugging Header
 
             try {
+                this.isLoading = true;
                 const response = await axios.post(apiUrl, data, { headers: headers });
                 if (response.status === 201) {
-                    this.setBookingId(response.data.id)
-                    //this.bookingId = response.data.id
-                    this.error = null
-                    console.log("Booking Id:")
-                    console.log(this.bookingId)
+                    this.setBookingId(response.data.id);
+                    this.error = null;
                 } else {
-                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Beim Abrufen der Informationen ist ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'}`
+                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'}`;
                 }
             } catch (error) {
-                console.log('API Error:', error)
-                this.error = error.response?.data?.message || 'Beim Abrufen der Informationen ist ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'
+                console.error('API Error:', error);
+                this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
             } finally {
-                this.isLoading = false
+                this.isLoading = false;
             }
         },
     },
