@@ -33,8 +33,9 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
 
     actions: {
         setBookingDetails(details) {
-            this.bookingDetails = { ...this.bookingDetails, ...details };
+            this.bookingDetails = {...this.bookingDetails, ...details};
             console.log("Aktualisierte Buchungsdetails:", this.bookingDetails);
+            console.log("Zusätzliche Debug-Information:", details);
         },
 
         setBookingId(id) {
@@ -90,7 +91,7 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
             };
 
             // JWT-Header hinzufügen, falls Benutzer eingeloggt ist
-            const headers = { "Content-Type": "application/json" };
+            const headers = {"Content-Type": "application/json"};
             const authStore = useAuthStore();
             if (authStore.isLoggedIn) {
                 headers.Authorization = `Bearer ${authStore.token}`;
@@ -99,19 +100,19 @@ export const useBookRoomStore = defineStore('BookRoomStore', {
 
             try {
                 this.isLoading = true;
-                const response = await axios.post(apiUrl, data, { headers: headers });
+                const response = await axios.post(apiUrl, data, {headers});
                 if (response.status === 201) {
                     this.setBookingId(response.data.id);
                     this.error = null;
                 } else {
-                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.'}`;
+                    this.error = `Fehler: ${response.status} - ${response.data.message || 'Ein Fehler ist aufgetreten. Beim Abrufen der Informationen ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'}`;
                 }
             } catch (error) {
                 console.error('API Error:', error);
-                this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
+                this.error = error.response?.data?.message || 'Ein Fehler ist aufgetreten. Beim Abrufen der Informationen ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.';
             } finally {
                 this.isLoading = false;
             }
-        },
-    },
+        }
+    }
 });
